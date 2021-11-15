@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { AttendanceRoutes } from './attendance.routing';
 import { RouterModule } from '@angular/router';
 import { FullCalendarModule } from '@fullcalendar/angular';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -14,6 +14,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     CommonModule,
     FormsModule,
     FullCalendarModule,
+    NgxPaginationModule,
     RouterModule.forChild(AttendanceRoutes),
   ]
 })

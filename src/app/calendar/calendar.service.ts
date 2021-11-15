@@ -27,7 +27,6 @@ export class CalendarService {
     return this.httpClient.post<any>(ApiService.removeEventListURL, bnr);
   }
   saveAttandanceList(admin): Observable<any> {
-    
     return this.httpClient.post<any>(ApiService.saveStudentAttandanceURL, admin);
   }
   getAttandanceList(id): Observable<any> {

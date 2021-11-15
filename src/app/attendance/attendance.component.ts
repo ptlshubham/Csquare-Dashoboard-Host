@@ -93,6 +93,9 @@ export class AttendanceComponent implements OnInit {
       this.students.forEach(element => {
         element.checked = false;
       })
+      for (let i = 0; i < this.students.length; i++) {
+        this.students[i].index = i + 1;
+      }
     });
   }
   isSelected(val) {
@@ -148,7 +151,6 @@ export class AttendanceComponent implements OnInit {
   }
   addStudentAttandance() {
     this.atd;
-
     this.calendarService.saveAttandanceList(this.atd).subscribe((data: any) => {
       this.apiService.showNotification('top', 'right', 'Attandance Added Successfully.', 'success');
       this.showModal = false;
