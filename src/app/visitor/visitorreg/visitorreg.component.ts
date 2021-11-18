@@ -35,7 +35,7 @@ export class VisitorregComponent implements OnInit {
   focus9;
   focus10;
   focus11;
-  uid:any;
+  uid: any;
   public visitorModel: RegisterVisitor = new RegisterVisitor;
   public regVistor: RegisterVisitor[];
   public stdlist: Std[];
@@ -354,26 +354,33 @@ export class VisitorregComponent implements OnInit {
       reader.readAsDataURL(input[0].files[0]);
     }
   }
-  saveStudentDetail() {
-
-  }
   Savevisitor() {
-    this.visitorModel;
+
     this.visitorModel.stdid = this.stdId;
     this.visitorModel.subid = this.selectedSubId;
-     
-    this.VisitorService.saveVisitorRegister(this.visitorModel).subscribe((data: any) => {
-       
-      this.uid = data.insertId;
-      this.apiService.showNotification('top', 'right', 'Profile Register Successfully.', 'success');
-      this.router.navigate(['/visitor/visitorexam'], {
+    this.visitorModel.visitorId = localStorage.getItem('vid');
+    this.VisitorService.updateVisitorReg(this.visitorModel).subscribe((req) => {
+      this.apiService.showNotification('top', 'right', 'Profile Successfully Completed.', 'success');
+      this.router.navigate(['/visitor/visitortest'], {
         queryParams: {
           subid: this.selectedSubId,
-          stdid:this.stdId,
-          uid:this.uid
+          stdid: this.stdId,
+          uid: localStorage.getItem('vid')
         }
       })
     })
+    // this.VisitorService.saveVisitorRegister(this.visitorModel).subscribe((data: any) => {
+
+    //   this.uid = data.insertId;
+    //   this.apiService.showNotification('top', 'right', 'Profile Register Successfully.', 'success');
+    //   this.router.navigate(['/visitor/visitorexam'], {
+    //     queryParams: {
+    //       subid: this.selectedSubId,
+    //       stdid: this.stdId,
+    //       uid: this.uid
+    //     }
+    //   })
+    // })
   }
   getStandardList() {
     this.manageService.getStdList().subscribe((data: any) => {
@@ -396,7 +403,7 @@ export class VisitorregComponent implements OnInit {
     });
   }
   selectSubjectList(id) {
-     
+
     this.selectedSubId = id;
     // this.stdId = id;
     this.subjects.forEach(element => {

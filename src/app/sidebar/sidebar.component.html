@@ -42,7 +42,7 @@
       <div class="clearfix"></div>
       <div class="collapse" id="collapseExample">
         <ul class="nav">
-          <li>
+          <li *ngIf="Roles != 'Visitor'">
             <a href="javascript:void(0)">
               <span class="sidebar-mini-icon">CP</span>
               <span class="sidebar-normal" routerLink="password">Change Password</span>
@@ -195,8 +195,8 @@
     </li>
   </ul>
 
-  <ul class="nav" *ngIf="visit == 'Visitor'">
-    <li routerLinkActive="active" *ngFor="let menuitem of studentMenuItems">
+  <ul class="nav" *ngIf="Roles == 'Visitor'">
+    <li routerLinkActive="active" *ngFor="let menuitem of visitorMenuItems">
       <!--If is a single link-->
       <a [routerLink]="[menuitem.path]" *ngIf="menuitem.type === 'link'">
         <i class="{{ menuitem.icontype }}"></i>

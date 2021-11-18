@@ -3,7 +3,6 @@ export class RegisterVisitor {
 
         public id?: number,
         public firstname?: string,
-        public middlename?: string,
         public lastname?: string,
         public contact?: number,
         public parents?: number,
@@ -13,12 +12,6 @@ export class RegisterVisitor {
         public email?: string,
         public password?: string,
         public standard?: string,
-        public grnumber?: string,
-        public gender?: any,
-        public dateofbirth?: Date,
-        public fname?: string,
-        public mname?: string,
-        public mnumber?: string,
         public schoolname?: string,
         public lastqulification?: string,
         public percentage?: string,
@@ -29,13 +22,12 @@ export class RegisterVisitor {
         public createddate?: Date,
         public updateddate?: Date,
         public isactive?: Boolean,
+        public detailsupdated?: Boolean,
         public index?: number,
         public school?: string,
         public qulification?: string,
-        public fatherCont?: number,
-        public motherCont?: number,
-        public mothername?: string,
-        public wappnumber?: number
+        public visitorOtp?: number,
+        public visitorId?: string
 
     ) {
     }

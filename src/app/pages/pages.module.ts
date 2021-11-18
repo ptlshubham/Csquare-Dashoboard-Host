@@ -7,6 +7,8 @@ import { LoginComponent } from './login/login.component';
 import { AdminloginComponent } from './adminlogin/adminlogin.component';
 import { ForgotpwdComponent } from './forgotpwd/forgotpwd.component';
 import { AdminforgotComponent } from './adminforgot/adminforgot.component';
+import { VisitorRegComponent } from './visitor-reg/visitor-reg.component';
+import { VisitorLoginComponent } from './visitor-login/visitor-login.component';
 
 
 @NgModule({
@@ -21,6 +23,8 @@ import { AdminforgotComponent } from './adminforgot/adminforgot.component';
         AdminloginComponent,
         ForgotpwdComponent,
         AdminforgotComponent,
+        VisitorRegComponent,
+        VisitorLoginComponent,
     ]
 })
 

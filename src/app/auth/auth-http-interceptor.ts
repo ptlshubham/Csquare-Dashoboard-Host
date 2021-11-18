@@ -18,16 +18,19 @@ export class AuthInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-      
-         
+
+
         // this.router.navigate(['home']);
         const token: string = localStorage.getItem('authenticationToken');
-        const adminToken: string =localStorage.getItem('authenticationAdminToken');
-         request.clone({headers:request.headers.set('rejectUnauthorized','false').set('requestCert', 'false')
-         .set('insecure', 'true')})
-        if(localStorage.getItem('role')=='Admin'){
+        const visitorToken: string = localStorage.getItem('authToken');
+        const adminToken: string = localStorage.getItem('authenticationAdminToken');
+        request.clone({
+            headers: request.headers.set('rejectUnauthorized', 'false').set('requestCert', 'false')
+                .set('insecure', 'true')
+        })
+        if (localStorage.getItem('role') == 'Admin') {
             if (request.url != ApiService.saveAdminLoginURL) {
-             
+
                 if (adminToken == null || adminToken == undefined) {
                     console.log("token is null");
                     this.router.navigate(['pages/login']);
@@ -35,23 +38,34 @@ export class AuthInterceptor implements HttpInterceptor {
                 request = request.clone({ headers: request.headers.set('x-access-token', adminToken) });
             }
         }
-        else{
-            if(token == null || token == undefined){
+        else if (localStorage.getItem('role') == 'Visitor') {
+            if (request.url != ApiService.getOtpVisitorURL || request.url != ApiService.saveVisitorDetailsURL || request.url != ApiService.saveVisitorLoginURL) {
+
+                if (visitorToken == null || visitorToken == undefined) {
+                    console.log("token is null");
+                    return next.handle(request);
+                    // this.router.navigate(['pages/login']);
+                }
+                request = request.clone({ headers: request.headers.set('x-access-token', visitorToken) });
+            }
+        }
+        else {
+            if (token == null || token == undefined) {
                 return next.handle(request);
             }
-            else{
-                if(request.url !=  ApiService.saveLoginUserURL ){
+            else {
+                if (request.url != ApiService.saveLoginUserURL) {
                     request = request.clone({ headers: request.headers.set('x-access-token', token) });
                 }
-                else{
+                else {
                     return next.handle(request);
                 }
             }
         }
-       
-       
 
-       
+
+
+
         return next.handle(request);
     }
 }
