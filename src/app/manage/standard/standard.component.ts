@@ -21,7 +21,7 @@ export class StandardComponent implements OnInit {
   public STD: Std[] = [];
   public editStd: Std[] = [];
   public standardTable: DataTable;
-  islist:boolean;
+  islist: boolean;
   constructor(
     private manageService: ManageService,
     private apiService: ApiService) {
@@ -37,16 +37,16 @@ export class StandardComponent implements OnInit {
     this.StdModel.isactive = true;
     this.manageService.saveStdList(this.StdModel).subscribe((response) => {
       this.apiService.showNotification('top', 'right', 'Standard Added Successfully.', 'success');
-      // this.StdModel.stdname=null;
+      // this.StdModel = {};
       this.getStdList();
-      this.islist=false;
+      this.islist = false;
 
     })
   }
   getStdList() {
-        this.manageService.getStdList().subscribe((data: any) => {
+    this.manageService.getStdList().subscribe((data: any) => {
       this.STD = data;
-      this.islist=true;
+      this.islist = true;
       for (let i = 0; i < this.STD.length; i++) {
         this.STD[i].index = i + 1;
       }

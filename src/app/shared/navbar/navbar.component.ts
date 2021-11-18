@@ -149,7 +149,14 @@ export class NavbarComponent implements OnInit {
         return this.location.prepareExternalUrl(this.location.path());
     }
     logout() {
-        localStorage.clear();
-        this.router.navigate(['pages/login'])
+        if (localStorage.getItem("role") == 'Visitor') {
+            localStorage.clear();
+            this.router.navigate(['pages/visitorlogin']);
+        }
+        else {
+            localStorage.clear();
+            this.router.navigate(['pages/login']);
+        }
+
     }
 }

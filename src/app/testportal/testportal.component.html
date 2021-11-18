@@ -1,76 +1,84 @@
 <div class="main-content">
- 
 
-    <div class="row" *ngIf="!testInfoBoxFlag && !ruleBoxFlag && !questionBoxFlag && type=='notattempt'">
-      <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let s of notattempttest; let i = index">
-        <div class="card card-stats" (click)="openStdTest(s.id)">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-5 col-md-4">
-                <div class="icon-big text-center icon-warning">
-                  <i class="fa fa-university"></i>
-                </div>
+
+  <div class="row" *ngIf="!testInfoBoxFlag && !ruleBoxFlag && !questionBoxFlag && type=='notattempt'">
+    <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let s of notattempttest; let i = index">
+      <div class="card card-stats" (click)="openStdTest(s.id)">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-5 col-md-4">
+              <div class="icon-big text-center icon-warning">
+                <i class="fa fa-university"></i>
               </div>
-              <div class="col-7 col-md-8">
-                <div class="numbers">
-                  <p class="card-title">{{ s.testname }}</p>
-                  <p class="card-category">Marks: {{ s.totalmarks }}</p>
-                  <p class="card-category">Minute: {{ s.totalminute }}</p>
-                  <p class="card-category">Not Attempted Test</p>
-                </div>
+            </div>
+            <div class="col-7 col-md-8">
+              <div class="numbers">
+                <p class="card-title">{{ s.testname }}</p>
+                <p class="card-category">Total Marks: {{ s.totalmarks }}</p>
+                <p class="card-category">Total Minute: {{ s.totalminute }}</p>
+                <p class="card-category">Not Attempted Test</p>
               </div>
             </div>
           </div>
-          <div class="card-footer" (click)="studentTest(s)">
-            <hr />
-            <div class="stats"><i class="fa fa-arrow-right"></i> Start Test</div>
-          </div>
+        </div>
+        <div class="card-footer" (click)="studentTest(s)">
+          <hr />
+          <div class="stats"><i class="fa fa-arrow-right"></i> Start Test</div>
         </div>
       </div>
-      <div style="bottom:60%;left:10%;position:absolute;height:10%;width: 70%; text-align: center;" *ngIf="notattempttest.length==0" >
-
-        <h1 style="color:gray">No Test</h1>
-        <a style="color:rgb(25, 25, 236);font-weight: bold;"><h5 style="font-weight: bold; text-decoration: underline;" (click)="back()"><i class="fa fa-arrow-left" aria-hidden="true"></i> Go Back</h5></a>
-      </div>
     </div>
-  
- 
-  
-    <div class="row" *ngIf="!testInfoBoxFlag && !ruleBoxFlag && !questionBoxFlag && type=='pending'">
-      <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let s of pendingtest; let i = index">
-        <div class="card card-stats" (click)="openStdTest(s.id)">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-5 col-md-4">
-                <div class="icon-big text-center icon-warning">
-                  <i class="fa fa-university"></i>
-                </div>
+    <div style="bottom:60%;left:10%;position:absolute;height:10%;width: 70%; text-align: center;"
+      *ngIf="notattempttest.length==0">
+
+      <h1 style="color:gray">No Test</h1>
+      <a style="color:rgb(25, 25, 236);font-weight: bold;">
+        <h5 style="font-weight: bold; text-decoration: underline;" (click)="back()"><i class="fa fa-arrow-left"
+            aria-hidden="true"></i> Go Back</h5>
+      </a>
+    </div>
+  </div>
+
+
+
+  <div class="row" *ngIf="!testInfoBoxFlag && !ruleBoxFlag && !questionBoxFlag && type=='pending'">
+    <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let s of pendingtest; let i = index">
+      <div class="card card-stats" (click)="openStdTest(s.id)">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-5 col-md-4">
+              <div class="icon-big text-center icon-warning">
+                <i class="fa fa-university"></i>
               </div>
-              <div class="col-7 col-md-8">
-                <div class="numbers">
-                  <p class="card-title">{{ s.testname }}</p>
-                  <p class="card-category">Marks: {{ s.totalmarks }}</p>
-                  <p class="card-category">Minute: {{ s.totalminute }}</p>
-                  <p class="card-category">Pending Test</p>
-                </div>
+            </div>
+            <div class="col-7 col-md-8">
+              <div class="numbers">
+                <p class="card-title">{{ s.testname }}</p>
+                <p class="card-category">Marks: {{ s.totalmarks }}</p>
+                <p class="card-category">Minute: {{ s.totalminute }}</p>
+                <p class="card-category">Pending Test</p>
               </div>
             </div>
           </div>
-          <div class="card-footer" (click)="studentTest(s)">
-            <hr />
-            <div class="stats"><i class="fa fa-arrow-right"></i> Start Test</div>
-          </div>
+        </div>
+        <div class="card-footer" (click)="studentTest(s)">
+          <hr />
+          <div class="stats"><i class="fa fa-arrow-right"></i> Start Test</div>
         </div>
       </div>
-      <div style="bottom:60%;left:10%;position:absolute;height:10%;width: 70%; text-align: center;" *ngIf="pendingtest.length ==0" >
-
-        <h1 style="color:gray">No Test</h1>
-        <a style="color:rgb(25, 25, 236);font-weight: bold;"><h5 style="font-weight: bold; text-decoration: underline;" (click)="back()"><i class="fa fa-arrow-left" aria-hidden="true"></i> Go Back</h5></a>
-      </div>
     </div>
-  
-  
-  
+    <div style="bottom:60%;left:10%;position:absolute;height:10%;width: 70%; text-align: center;"
+      *ngIf="pendingtest.length ==0">
+
+      <h1 style="color:gray">No Test</h1>
+      <a style="color:rgb(25, 25, 236);font-weight: bold;">
+        <h5 style="font-weight: bold; text-decoration: underline;" (click)="back()"><i class="fa fa-arrow-left"
+            aria-hidden="true"></i> Go Back</h5>
+      </a>
+    </div>
+  </div>
+
+
+
 
   <div *ngIf="testInfoBoxFlag" class="row">
     <div class="col col-sm-12">
@@ -235,9 +243,12 @@
     </div>
   </div>
 
-  <div style="bottom:60%;left:10%;position:absolute;height:10%;width: 70%; text-align: center;" >
+  <div style="bottom:60%;left:10%;position:absolute;height:10%;width: 70%; text-align: center;">
 
     <h1 style="color:gray">No Test</h1>
-    <a style="color:blue;font-weight: bold;"><h5 style="font-weight: bold; text-decoration: underline;" (click)="back()"><i class="fa fa-arrow-left" aria-hidden="true"></i> Go Back</h5></a>
+    <a style="color:blue;font-weight: bold;">
+      <h5 style="font-weight: bold; text-decoration: underline;" (click)="back()"><i class="fa fa-arrow-left"
+          aria-hidden="true"></i> Go Back</h5>
+    </a>
   </div>
 </div>

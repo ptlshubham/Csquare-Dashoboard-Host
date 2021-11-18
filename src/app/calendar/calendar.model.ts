@@ -9,7 +9,8 @@ export class CalendarEvents {
         public createddate?: Date,
         public updateddate?: Date,
         public color?: string,
-        public index?: number
+        public index?: number,
+        public title?: string
 
 
     ) {

@@ -83,6 +83,7 @@ export const ROUTES: RouteInfo[] = [
       { path: "visitorreg", title: "Registration", ab: "VR" },
       { path: "visitorlist", title: "Vistor List", ab: "VL" },
       { path: "manageque", title: "Manage Question", ab: "MQ" },
+      { path: "visitortest", title: "Test List", ab: "TL" },
       { path: "visitorexam", title: "Vistor Test", ab: "VE" },
 
     ],
@@ -161,12 +162,12 @@ export const Visitor: RouteInfo[] = [
     title: "Visitor",
     type: "sub",
     collapse: "visit",
-    roles: "visitor",
+    roles: "Visitor",
     icontype: "fa fa-user",
     children: [
       { path: "visitorreg", title: "Registration", ab: "VR" },
       // { path: "visitorlist", title: "Vistor List", ab: "VL" },
-      // { path: "manageque", title: "Manage Question", ab: "MQ" },
+      { path: "visitortest", title: "Test List", ab: "TL" },
       { path: "visitorexam", title: "Vistor Test", ab: "VE" },
 
     ],
@@ -187,6 +188,7 @@ export class SidebarComponent implements OnInit {
   public Rolees = localStorage.getItem("Role");
   public userName = localStorage.getItem("UserName");
   public userId = localStorage.getItem("UserId");
+
   Roles: any;
   visit: '';
 
@@ -224,7 +226,14 @@ export class SidebarComponent implements OnInit {
     });
   }
   logout() {
-    localStorage.clear();
-    this.router.navigate(['pages/login'])
+    if (localStorage.getItem("role") == 'Visitor') {
+      localStorage.clear();
+      this.router.navigate(['pages/visitorlogin']);
+    }
+    else {
+      localStorage.clear();
+      this.router.navigate(['pages/login']);
+    }
+
   }
 }

@@ -17,7 +17,7 @@ export class LoginService {
         private httpClient: HttpClient
     ) { }
     login(credentials: Loginuser): Observable<any> {
-         
+
         if (credentials.role == 'admin') {
             const data = {
                 email: credentials.email,
@@ -25,6 +25,14 @@ export class LoginService {
             };
 
             return this.httpClient.post<any>(ApiService.saveAdminLoginURL, data);
+        }
+        else if (credentials.role == 'Visitor') {
+            const data = {
+                email: credentials.email,
+                password: credentials.password,
+            };
+
+            return this.httpClient.post<any>(ApiService.saveVisitorLoginURL, data);
         }
         else {
             const data = {

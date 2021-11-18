@@ -8,11 +8,12 @@ import { FormsModule } from '@angular/forms';
 import { VisitorexamComponent } from './visitorexam/visitorexam.component';
 import { VisitorlistComponent } from './visitorlist/visitorlist.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { VisitorTestListComponent } from './visitor-test-list/visitor-test-list.component';
 
 
 
 @NgModule({
-  declarations: [VisitorregComponent, ManagequeComponent, VisitorexamComponent, VisitorlistComponent],
+  declarations: [VisitorregComponent, ManagequeComponent, VisitorexamComponent, VisitorlistComponent, VisitorTestListComponent],
 
   imports: [
     CommonModule,

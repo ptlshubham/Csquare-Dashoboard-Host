@@ -31,7 +31,7 @@ const colors: any = {
 export class CalendarComponent implements OnInit {
   eventSave: any;
   selected: any;
-  public calendarModel: CalendarEvents = new CalendarEvents();
+  public calendarModel: CalendarEvents = new CalendarEvents;
   public eventList: CalendarEvents[] = [];
   posts = [];
   public eventColor: string = '#c00f26';
@@ -65,9 +65,12 @@ export class CalendarComponent implements OnInit {
   addEventsDetails() {
     this.calendarModel.date = this.selected;
     this.calendarModel.active = true;
+    debugger
     this.calenderService.saveEventsList(this.calendarModel).subscribe((data: any) => {
       this.apiService.showNotification('top', 'right', 'Event Added Successfully.', 'success');
+      this.calendarModel.title = "";
       this.getEventDetails();
+
     })
   }
   getEventDetails() {
@@ -99,7 +102,7 @@ export class CalendarComponent implements OnInit {
       if (result.value == true) {
         this.calenderService.removeEventData(id).subscribe((req) => {
           this.apiService.showNotification('top', 'right', 'Event removed Successfully.', 'success');
-          
+
         })
         Swal.fire(
           {
@@ -112,8 +115,9 @@ export class CalendarComponent implements OnInit {
             buttonsStyling: false
           }
         )
-        this.getEventDetails();      }
+        this.getEventDetails();
+      }
     })
- 
+
   }
 }
