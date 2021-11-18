@@ -50,6 +50,8 @@ export class StandardComponent implements OnInit {
       for (let i = 0; i < this.STD.length; i++) {
         this.STD[i].index = i + 1;
       }
+      
+      // this.StdModel.stdname=null;
     });
   }
   removeStandard(id) {

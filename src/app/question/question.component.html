@@ -87,10 +87,10 @@
           <h4 class="card-title">Manage Questionnaire</h4>
         </div>
         <div class="ml-md-auto">
-          <button type="submit" class="btn btn-success btn-round" data-toggle="modal" data-target="#testModal"
+          <!-- <button type="submit" class="btn btn-success btn-round" data-toggle="modal" data-target="#testModal"
             *ngIf="isMasterSel" (click)="viewtestlist()">
             <i class="fa fa-plus" aria-hidden="true"></i> Add Test
-          </button>
+          </button> -->
           <button type="submit" class="btn btn-info btn-round" (click)="openQuestionBox()">
             <i class="fa fa-plus" aria-hidden="true"></i> Add Question
           </button>
@@ -497,15 +497,16 @@
             </div>
           </div>
         </div>
-        <div class="ml-md-auto">
+        <div class="col-md-3 ">
           <button type="submit" class="btn btn-success btn-round" data-toggle="modal" data-target="#testModal"
-            *ngIf="isMasterSel" (click)="viewtestlist()">
+            *ngIf="checkedQuestionList.length >0" (click)="viewtestlist()">
             <i class="fa fa-plus" aria-hidden="true"></i> Add Test
           </button>
-          <button type="submit" class="btn btn-info btn-round" (click)="openQuestionBox()">
+          <!-- <button type="submit" class="btn btn-info btn-round" (click)="openQuestionBox()">
             <i class="fa fa-plus" aria-hidden="true"></i> Add Question
-          </button>
+          </button> -->
         </div>
+        <div class="col-md-2"></div>
       </div>
       <div class="row">
         <div class="ml-md-auto">
@@ -524,9 +525,9 @@
             <th class="text-left">
               <div class="form-check">
                 <label class="form-check-label">
-                  <input class="form-check-input" [(ngModel)]="isMasterSel" name="list_name" value="h1"
+                  <!-- <input class="form-check-input" [(ngModel)]="isMasterSel" name="list_name" value="h1"
                     (change)="checkUncheckAll()" type="checkbox" />
-                  <span class="form-check-sign"></span>
+                  <span class="form-check-sign"></span> -->
                 </label>
               </div>
             </th>
@@ -544,7 +545,7 @@
                 <div class="form-check">
                   <label class="form-check-label">
                     <input class="form-check-input" [(ngModel)]="item.isactive" name="list_name" value="{{ item.id }}"
-                      (change)="isAllSelected()" type="checkbox" />
+                      (change)="isAllSelected(item)" type="checkbox" />
                     <span class="form-check-sign"></span>
                   </label>
                 </div>

@@ -245,7 +245,6 @@ export class RegisterComponent implements OnInit {
     });
   }
   onItemSelect($event) {
-
     let data = {
       selStds: $event.itemName,
       stdid: $event.id,
@@ -255,14 +254,11 @@ export class RegisterComponent implements OnInit {
       subsel: ' '
     }
     this.manageService.getSubjectList($event.id).subscribe((res: any) => {
-
       res.forEach(element => {
-
         let data1 = {
           itemName: element.subject,
           id: element.id,
         }
-
         data.subdata.push(data1);
       });
       this.selectStdsList.push(data);
@@ -270,49 +266,58 @@ export class RegisterComponent implements OnInit {
   }
 
   OnItemDeSelect(item: any) {
-
     for (let i = 0; i < this.selectStdsList.length; i++) {
       if (this.selectStdsList[i].stdid == item.id) {
         this.selectStdsList.splice(i, 1);
       }
     }
   }
+  OnItemDeSelectSub($event,val){
+   debugger
+    for(let i=0;i<val.selsubjects.length;i++){
+      debugger
+      if($event.itemName == val.selsubjects[i].subname){
+        val.selsubjects.splice(i,1);
+      }
+    }
+    val.subsel='';
+    debugger
+    val.selsubjects.forEach(element => {
+      debugger
+      if(element.subname != undefined){
+        val.subsel = val.subsel + ';'+element.subname;
+      }
+     
+    });
+  }
   onsubItemSelect($event, val) {
-    let count = 1;
-    this.selectStdsList.forEach(element => {
-      if (element.stdid == val.stdid) {
         let data = {
           subname: $event.itemName,
           subid: $event.id
         };
-        element.selsubjects.push(data);
-        element.selsubjects.forEach(element1 => {
-
-          if (element1.subname != $event.itemName) {
-
-            count++;
+        val.selsubjects.push(data);
+        val.subsel='';
+        val.selsubjects.forEach(element1 => {
+          if(element1.subname != undefined){
+            val.subsel = val.subsel +';'+element1.subname;
           }
-        }, 2000);
-        if (count == element.selsubjects.length) {
-
-          element.subsel = element.subsel + " ; " + $event.itemName;
-        } else {
-          // element.subsel.Substr($event.itemName, element.subsel);
-
-          let a = element.subsel.replaceAll($event.itemName, "");
-          a;
-
-        }
-      }
-    });
+         
+        }); 
   }
   onSelectAll(items: any) {
 
     console.log(items);
   }
   onDeSelectAll(items: any) {
-    console.log(items);
+    this.selectStdsList=[];
   }
+  onDeSelectAllSub($event,val) {
+    val.selsubjects=[];
+    val.subsel='';
+  }
+  
+  
+  
   getSubject(id) {
     this.manageService.getSubjectList(id).subscribe((data: any) => {
       this.subjectList = data;

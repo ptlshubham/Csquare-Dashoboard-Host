@@ -162,26 +162,26 @@
             </div>
           </div>
         </div>
-        <div class="row" *ngFor="let add of selectStdsList">
+        <div>
+          <div class="row" *ngFor="let add of selectStdsList">
           <label class="col-md-2 col-form-label">Selected Standard</label>
-
           <div class="col-md-2">
             <div class="form-group">
               <label type="text" class="form-control" name="selStds">{{add.selStds}}</label>
             </div>
           </div>
-
           <label class="col-md-2 col-form-label">Select Subjects</label>
           <div class="col-md-4">
             <div style="border: 1px #dddddd solid !important">
-              <angular2-multiselect [data]="add.subdata" [(ngModel)]="add.subject" [settings]="dropdownSettings"
-                (onSelect)="onsubItemSelect($event,add)" (onDeSelect)="OnItemDeSelect($event)" name="subs"
-                (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect>
+              <angular2-multiselect [data]="add.subdata" [(ngModel)]="add.selsubjects" [settings]="dropdownSettings"
+                (onSelect)="onsubItemSelect($event,add)" (onDeSelect)="OnItemDeSelectSub($event,add)" name="subs"
+                (onDeSelectAll)="onDeSelectAllSub($event,add)"></angular2-multiselect>
             </div>
-
           </div>
           <label class="col-md-2 col-form-label">{{add.subsel}}</label>
         </div>
+        </div>
+        
 
         <!-- <div class="row" *ngFor="let add of addStdFields;let ind=index">
                     <label class="col-md-2 col-form-label">Selected Standard</label>
@@ -378,27 +378,24 @@
                     </angular2-multiselect>
                   </div>
                 </div>
-
                 <div class="row" *ngFor="let add of selectStdsList">
-                  <label class="col-sm-2 col-form-label">Selected Standard</label>
-
-                  <div class="col-sm-2">
+                  <label class="col-md-2 col-form-label">Selected Standard</label>
+                  <div class="col-md-2">
                     <div class="form-group">
                       <label type="text" class="form-control" name="selStds">{{add.selStds}}</label>
                     </div>
                   </div>
-
-                  <label class="col-sm-2 col-form-label">Select Subjects</label>
-                  <div class="col-sm-4">
+                  <label class="col-md-2 col-form-label">Select Subjects</label>
+                  <div class="col-md-4">
                     <div style="border: 1px #dddddd solid !important">
-                      <angular2-multiselect [data]="add.subdata" [(ngModel)]="add.subject" [settings]="dropdownSettings"
-                        (onSelect)="onsubItemSelect($event,add)" (onDeSelect)="OnItemDeSelect($event)" name="subs"
-                        (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect>
+                      <angular2-multiselect [data]="add.subdata" [(ngModel)]="add.selsubjects" [settings]="dropdownSettings"
+                        (onSelect)="onsubItemSelect($event,add)" (onDeSelect)="OnItemDeSelectSub($event,add)" name="subs"
+                        (onDeSelectAll)="onDeSelectAllSub($event,add)"></angular2-multiselect>
                     </div>
-
                   </div>
-                  <label class="col-sm-2 col-form-label">{{add.subsel}}</label>
+                  <label class="col-md-2 col-form-label">{{add.subsel}}</label>
                 </div>
+        
 
               </div>
             </form>

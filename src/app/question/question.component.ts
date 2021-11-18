@@ -465,13 +465,22 @@ export class QuestionComponent implements OnInit {
     
   }
 
-  isAllSelected() {
-
-    this.isMasterSel = this.que.every(function (item: any) {
-      return item.isSelected == true;
+  isAllSelected(val) {
+    debugger
+    this.que.forEach(element=>{
+      if((element.id == val.id) && val.isactive){
+        element.isSelected=val.isactive ;
+      }
+      else{
+        element.isSelected = false;
+      }
     })
-    this.isMasterSel = true;
-    this.getCheckedItemList();
+    debugger
+    // this.isMasterSel = this.que.every(function (item: any) {
+    //   return item.isSelected == true;
+    // })
+    // this.isMasterSel = true;
+     this.getCheckedItemList();
   }
   viewtestlist(){
     this.totalMarks = 0;
@@ -512,7 +521,7 @@ export class QuestionComponent implements OnInit {
        
   }
   getCheckedItemList() {
-       
+       debugger
     // this.checkedQuestionList = [];
     // for (let i = 0; i < this.checkedQuestionList.length; i++) {
     //   this.checkedQuestionList[i].index = i + 1;
@@ -521,7 +530,7 @@ export class QuestionComponent implements OnInit {
     // this.totalMarks = 0;
     // this.totalQuestions = 0;
     for (var i = 0; i < this.que.length; i++) {
-      if (this.que[i].isactive) {
+      if (this.que[i].isSelected) {
         this.checkedQuestionList.push(this.que[i]);
       }
     }
