@@ -58,7 +58,7 @@ export class QuestionComponent implements OnInit {
 
   // Test Create Modal Variables
   isMasterSel: boolean = false;
-  checkedQuestionList: any=[];
+  checkedQuestionList: any = [];
   totalQuestions: number = 0;
   totalMarks: number = 0;
   duration: number = 0;
@@ -194,8 +194,8 @@ export class QuestionComponent implements OnInit {
   }
 
   openQuestionBox() {
-    this.questionModel={};
-    this.selectedQue='';
+    this.questionModel = {};
+    this.selectedQue = '';
     this.addQuestion = true;
     this.questionList = false;
     this.updateButton = false;
@@ -230,9 +230,9 @@ export class QuestionComponent implements OnInit {
   }
 
   openChapterBox(chap) {
-    
+
     if (chap.id == undefined) {
-      
+
       this.chapater.forEach(element => {
         if (element.id == chap.chapid) {
           element.color = '3px 3px 5px 5px #ef8157';
@@ -245,13 +245,13 @@ export class QuestionComponent implements OnInit {
       this.questionList = true;
       this.addQuestion = false;
       this.istestcr = false;
-      
+
       this.getQueList(chap.chapid);
       // this.getChapaters();
       this.resetModalData();
     }
     else {
-      
+
       this.chapater.forEach(element => {
         if (element.id == chap.id) {
           element.color = '3px 3px 5px 5px #ef8157';
@@ -433,45 +433,45 @@ export class QuestionComponent implements OnInit {
   }
 
   checkUncheckAll() {
-       
-    if(this.isMasterSel){
+
+    if (this.isMasterSel) {
       for (var i = 0; i < this.que.length; i++) {
         this.que[i].isactive = this.isMasterSel;
 
       }
-        this.getCheckedItemList();
+      this.getCheckedItemList();
 
-    }else{
+    } else {
       for (var i = 0; i < this.que.length; i++) {
         this.que[i].isactive = this.isMasterSel;
 
       }
-      if(this.checkedQuestionList.length>0){
-           
-        this.que.forEach(element=>{
-          for(let i=0;i<this.checkedQuestionList.length;i++){
-            if(element.id == this.checkedQuestionList[i].id){
-              this.checkedQuestionList.splice(i,1);
+      if (this.checkedQuestionList.length > 0) {
+
+        this.que.forEach(element => {
+          for (let i = 0; i < this.checkedQuestionList.length; i++) {
+            if (element.id == this.checkedQuestionList[i].id) {
+              this.checkedQuestionList.splice(i, 1);
             }
           }
         })
       }
-      else{
-           
-        this.checkedQuestionList=[];
+      else {
+
+        this.checkedQuestionList = [];
       }
     }
-   
-    
+
+
   }
 
   isAllSelected(val) {
     debugger
-    this.que.forEach(element=>{
-      if((element.id == val.id) && val.isactive){
-        element.isSelected=val.isactive ;
+    this.que.forEach(element => {
+      if ((element.id == val.id) && val.isactive) {
+        element.isSelected = val.isactive;
       }
-      else{
+      else {
         element.isSelected = false;
       }
     })
@@ -480,22 +480,22 @@ export class QuestionComponent implements OnInit {
     //   return item.isSelected == true;
     // })
     // this.isMasterSel = true;
-     this.getCheckedItemList();
+    this.getCheckedItemList();
   }
-  viewtestlist(){
+  viewtestlist() {
     this.totalMarks = 0;
-    this.duration=0;
+    this.duration = 0;
     for (let i = 0; i < this.checkedQuestionList.length; i++) {
       this.checkedQuestionList[i].index = i + 1;
     }
     this.checkedQuestionList.forEach(element => {
       this.totalMarks = this.totalMarks + element.marks;
       this.duration = this.duration + element.time;
-         
+
     });
     this.totalMarks;
     this.duration;
-       
+
   }
   back() {
     if (this.showChapter) {
@@ -511,17 +511,17 @@ export class QuestionComponent implements OnInit {
       this.router.navigate(['dashboard']);
     }
   }
-  canceltest(){
-    this.checkedQuestionList=[];
-    this.isMasterSel=false;
+  canceltest() {
+    this.checkedQuestionList = [];
+    this.isMasterSel = false;
     for (var i = 0; i < this.que.length; i++) {
       this.que[i].isactive = this.isMasterSel;
 
     }
-       
+
   }
   getCheckedItemList() {
-       debugger
+    debugger
     // this.checkedQuestionList = [];
     // for (let i = 0; i < this.checkedQuestionList.length; i++) {
     //   this.checkedQuestionList[i].index = i + 1;

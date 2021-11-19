@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'app/api.service';
 import { ManageService } from 'app/manage/manage.service';
 import { Std } from 'app/manage/standard/standard.model';
+import { Chapater } from 'app/manage/subject/chapater.model';
 import { Subject } from 'app/manage/subject/subject.model';
 import { Question } from 'app/question/question.model';
 import { QuestionService } from 'app/question/question.service';
+import Swal from 'sweetalert2';
 import { VisitorService } from '../visitor.service';
 
 @Component({
@@ -17,6 +19,7 @@ export class ManagequeComponent implements OnInit {
   public stdlist: Std[];
   public subjects: Subject[];
   public que: Question[];
+  public quelist: Question[] = [];
   public stdId: any;
   selectedSubjectId: any;
   selectedstd: any;
@@ -37,6 +40,7 @@ export class ManagequeComponent implements OnInit {
   // Test Create Modal Variables
   isMasterSel: boolean = false;
   checkedQuestionList: any;
+  showChapter: boolean = false;
   totalQuestions: number = 0;
   totalMarks: number = 0;
   duration: number = 0;
@@ -45,6 +49,13 @@ export class ManagequeComponent implements OnInit {
   standardName: string = '';
   subjetId: number;
   subjectName: string = '';
+
+  subID: any;
+  std: any[];
+  public chapater: Chapater[] = [];
+  istestcr: boolean = false;
+  chapId: any;
+  selectedCha: any;
   constructor(
     private manageService: ManageService,
     private questionService: QuestionService,
@@ -59,6 +70,12 @@ export class ManagequeComponent implements OnInit {
     this.val++;
     this.addAnswers = [{ name: this.ansVal }];
     this.ansVal++;
+  }
+  createChapTest() {
+    this.istestcr = true;
+    this.questionList = false;
+    this.addQuestion = false;
+    this.checkedQuestionList = [];
   }
   addOptionsList() {
     this.val++;
@@ -108,11 +125,10 @@ export class ManagequeComponent implements OnInit {
     this.manageService.getSubjectList(this.stdId).subscribe((data: any) => {
       this.subjects = data;
       this.subjects.forEach(element => {
-        this.VisitorService.getVisitorQue(element.id).subscribe((res: any) => {
-          element.question = res;
+        this.manageService.getChapatersList(element.id).subscribe((res: any) => {
+          element.chapter = res;
           element.color = '3px 3px 5px 5px #ebf0ec';
-
-        })
+        });
       })
     });
   }
@@ -133,19 +149,83 @@ export class ManagequeComponent implements OnInit {
   ViewVisitorTestQue(data) {
     this.questionModel = data;
   }
-  openQuestionList(sub) {
 
+  openQuestionList(sub) {
+    debugger
     this.subjects.forEach(element => {
       if (element.id == sub.id) {
         element.color = '3px 3px 5px 5px #ef8157';
       } else {
         element.color = '3px 3px 5px 5px #ebf0ec';
       }
-      this.subjectId = sub.id;
-      this.subjectName = sub.subject;
     })
-    this.questionList = true;
-    this.getQueList();
+    this.subjectId = sub.id;
+    this.showChapter = true;
+    this.questionList = false;
+    this.addQuestion = false;
+    this.istestcr = false;
+    // this.standardName = this.std[0].stdname;
+    // this.standardId = this.std[0].id;
+    // this.subjectName = sub.subject;
+
+    // this.subID = sub.id;
+    this.getChapaters();
+
+  }
+  getChapaters() {
+    debugger
+    this.manageService.getChapatersList(this.subjectId).subscribe((data: any) => {
+      this.chapater = data;
+      this.chapater.forEach(element => {
+        this.questionService.getAllQuestion(element.id).subscribe((res: any) => {
+          element.question = res;
+          element.color = '3px 3px 5px 5px #ebf0ec';
+        })
+      })
+    });
+  }
+  openChapterBox(chap) {
+
+    if (chap.id == undefined) {
+
+      this.chapater.forEach(element => {
+        if (element.id == chap.chapid) {
+          element.color = '3px 3px 5px 5px #ef8157';
+        } else {
+          element.color = '3px 3px 5px 5px #ebf0ec';
+        }
+      })
+      this.chapId = chap.chapid;
+
+      this.questionList = true;
+      this.addQuestion = false;
+      this.istestcr = false;
+
+      this.getQueList(chap.chapid);
+      // this.getChapaters();
+      this.resetModalData();
+    }
+    else {
+
+      this.chapater.forEach(element => {
+        if (element.id == chap.id) {
+          element.color = '3px 3px 5px 5px #ef8157';
+        } else {
+          element.color = '3px 3px 5px 5px #ebf0ec';
+        }
+      })
+      this.chapId = chap.id;
+
+      this.questionList = true;
+      this.addQuestion = false;
+      this.istestcr = false;
+      this.getQueList(this.chapId);
+      // this.getChapaters();
+      this.resetModalData();
+    }
+
+
+
   }
   openQuestionnaireBox() {
     this.openQuestionnaire = true;
@@ -188,32 +268,77 @@ export class ManagequeComponent implements OnInit {
   }
 
   saveNewQuestion(data) {
+
+    this.addOptions.forEach(element => {
+      if (element.image == '') {
+        element.image == null
+      }
+    });
     data.options = this.addOptions;
     data.answer = this.addAnswers;
+
     data.stdid = this.stdId;
-    data.subid = this.subjectId;
-    data.quetype = 'MCQ';
-    this.VisitorService.saveVisitorQue(data).subscribe((data: any) => {
+    data.subid = this.subID;
+    data.chapid = this.chapId;
+    // data.quetype = this.selectedQue;
+
+    this.questionService.saveQueList(data).subscribe((data1: any) => {
       this.apiService.showNotification('top', 'right', 'New Question Added Successfully.', 'success');
-      this.getQueList();
       this.questionList = true;
       this.addQuestion = false;
-
+      this.showChapter = true;
+      this.openChapterBox(data);
+      this.getQueList(this.chapId);
+      this.getChapaters();
     })
   }
-  getQueList() {
-    this.VisitorService.getVisitorQue(this.subjectId).subscribe((data: any) => {
+
+  getQueList(id) {
+    this.questionService.getAllQuestion(id).subscribe((data: any) => {
       this.que = data;
-      for (let i = 0; i < this.que.length; i++) {
-        this.que[i].index = i + 1;
-      }
+      this.quelist = data;
+      // for (let i = 0; i < this.que.length; i++) {
+      //   this.que[i].index = i + 1;
+      // }
+
     });
   }
   removeQuestion(id) {
-    this.VisitorService.removeVisitorQue(id).subscribe((data: any) => {
-      this.apiService.showNotification('top', 'right', 'Remove Question Successfully.', 'success');
-      this.getQueList();
-    });
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You want to delete!",
+      icon: 'warning',
+      showCancelButton: true,
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger',
+      },
+      confirmButtonText: 'Yes',
+      buttonsStyling: false
+    }).then((result) => {
+      this.questionService.removeQueList(id).subscribe((data: any) => {
+        this.apiService.showNotification('top', 'right', 'Remove Question Successfully.', 'success');
+
+      });
+      if (result.value == true) {
+
+        Swal.fire(
+          {
+            title: 'Deleted!',
+            text: 'Your Question has been deleted.',
+            icon: 'success',
+            customClass: {
+              confirmButton: "btn btn-success",
+            },
+            buttonsStyling: false
+          }
+        )
+        this.getQueList(this.chapId);
+        this.getChapaters();
+      }
+    })
+
+
   }
 
   resetModalData() {
@@ -260,8 +385,14 @@ export class ManagequeComponent implements OnInit {
     this.totalQuestions = this.checkedQuestionList.length;
     //this.checkedQuestionList = JSON.stringify(this.checkedQuestionList);
   }
-  addTest() {
-
+  selectChapater(id) {
+    this.chapater.forEach(element => {
+      if (element.id == id) {
+        this.selectedCha = element.chapname;
+      }
+      this.chapId = id;
+      this.getQueList(this.chapId);
+    })
   }
   updateTotals() {
     this.totalMarks = 0;
