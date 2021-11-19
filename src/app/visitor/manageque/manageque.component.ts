@@ -256,6 +256,7 @@ export class ManagequeComponent implements OnInit {
     this.issubjectlist = false;
   }
   openQuestionBox() {
+    this.istestcr = false;
     this.addQuestion = true;
     this.questionList = false;
     this.submitButton = true;
