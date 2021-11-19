@@ -6,8 +6,8 @@ declare var $: any;
   providedIn: 'root'
 })
 export class ApiService {
-          //  public static HOST_URL: string = "http://31.220.59.174:3500";
-          public static HOST_URL: string = "http://localhost:3500";
+            // public static HOST_URL: string = "http://31.220.59.174:3500";
+           public static HOST_URL: string = "http://localhost:3500";
 
   constructor(
     private http: HttpClient,
