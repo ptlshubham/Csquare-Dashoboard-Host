@@ -385,6 +385,21 @@ export class ManagequeComponent implements OnInit {
     this.totalQuestions = this.checkedQuestionList.length;
     //this.checkedQuestionList = JSON.stringify(this.checkedQuestionList);
   }
+  viewtestlist() {
+    this.totalMarks = 0;
+    this.duration = 0;
+    for (let i = 0; i < this.checkedQuestionList.length; i++) {
+      this.checkedQuestionList[i].index = i + 1;
+    }
+    this.checkedQuestionList.forEach(element => {
+      this.totalMarks = this.totalMarks + element.marks;
+      this.duration = this.duration + element.time;
+
+    });
+    this.totalMarks;
+    this.duration;
+
+  }
   selectChapater(id) {
     this.chapater.forEach(element => {
       if (element.id == id) {
