@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'app/api.service';
+import { data } from 'jquery';
 import Swal from 'sweetalert2';
 import { ManageService } from '../manage.service';
 import { Std } from './standard.model';
@@ -50,7 +51,7 @@ export class StandardComponent implements OnInit {
       for (let i = 0; i < this.STD.length; i++) {
         this.STD[i].index = i + 1;
       }
-      
+
       // this.StdModel.stdname=null;
     });
   }
@@ -90,5 +91,13 @@ export class StandardComponent implements OnInit {
   }
   editStandard(data) {
     this.editStd = data;
+
+  }
+  updateStandardList(data) {
+
+    this.manageService.updateStdList(data).subscribe((req) => {
+      this.apiService.showNotification('top', 'right', 'Standard updated Successfully.', 'success');
+    })
+
   }
 }

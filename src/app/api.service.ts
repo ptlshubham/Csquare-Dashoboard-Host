@@ -6,8 +6,8 @@ declare var $: any;
   providedIn: 'root'
 })
 export class ApiService {
-            // public static HOST_URL: string = "http://31.220.59.174:3500";
-           public static HOST_URL: string = "http://localhost:3500";
+  // public static HOST_URL: string = "http://31.220.59.174:3500";
+  public static HOST_URL: string = "http://localhost:3500";
 
   constructor(
     private http: HttpClient,
@@ -25,6 +25,7 @@ export class ApiService {
 
   public static saveStdListURL: string = ApiService.HOST_URL + '/admin/SaveStdList';
   public static getStdListURL: string = ApiService.HOST_URL + '/admin/GetStdList';
+  public static updateStandardURL: string = ApiService.HOST_URL + '/admin/UpdateStandardList'
   public static saveSubjectURL: string = ApiService.HOST_URL + '/admin/saveSubject';
   public static getSubjectListURL: string = ApiService.HOST_URL + '/admin/GetSubjectList';
   public static updateSubjectURL: string = ApiService.HOST_URL + '/admin/UpdateSujectList/';
@@ -113,7 +114,7 @@ export class ApiService {
   public static getOtpVisitorURL: string = ApiService.HOST_URL + '/authenticate/GetOtpVisitorURL';
   public static updateVisitorRegURL: string = ApiService.HOST_URL + '/admin/UpdateVisitorReg';
   public static saveVisitorLoginURL: string = ApiService.HOST_URL + '/admin/VisitorLogin';
-  public static GetTestDetailsURL : string = ApiService.HOST_URL + '/admin/GetVisitorTest';
+  public static GetTestDetailsURL: string = ApiService.HOST_URL + '/admin/GetVisitorTest';
   //  public static GetViewVisitorTestListURL: string = ApiService.HOST_URL + '/admin/GetViewVisitorTestList';
   showNotification(from, align, msg, color) {
 

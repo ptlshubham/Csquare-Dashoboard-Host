@@ -64,7 +64,8 @@
                             <td class="text-center">{{item.index}}</td>
                             <td class="text-center">{{ item.stdname }}</td>
                             <td class="text-right">
-                                <a class="btn btn-warning btn-link btn-icon btn-sm edit">
+                                <a class="btn btn-warning btn-link btn-icon btn-sm edit" data-toggle="modal"
+                                    data-target="#standardModal">
                                     <i class="fa far fa-eye" (click)="editStandard(item)"></i>
                                 </a>
                                 <a class="btn btn-danger btn-link btn-icon btn-sm remove"><i class="fa fa-times"
@@ -114,7 +115,7 @@
                 </div>
                 <div class="modal-footer justify-content-center">
                     <button type="button" class="btn btn-info btn-round" data-dismiss="modal"
-                        (click)="updateStandard(editStd)">
+                        (click)="updateStandardList(editStd)">
                         Update
                     </button>
                     <button type="button" class="btn btn-secondary btn-round" data-dismiss="modal">
