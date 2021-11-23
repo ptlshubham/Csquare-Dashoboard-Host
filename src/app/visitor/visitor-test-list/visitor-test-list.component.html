@@ -33,8 +33,8 @@
     </div>
     <div class="card card-plain">
         <div class="card-body">
-            <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let s of visitorTestList; let i = index">
-                <div class="card card-stats" (click)="openStdTest(s.id)">
+            <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let s of visitorTestList; let i = index" (click)="studentTest(s)">
+                <div class="card card-stats" >
                     <div class="card-body">
                         <div class="row">
                             <div class="col-5 col-md-4">

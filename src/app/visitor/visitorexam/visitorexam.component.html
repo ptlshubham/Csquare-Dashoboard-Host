@@ -40,10 +40,10 @@
                 </div>
                 <div class="card-body">
                     <h2>Exam Information</h2>
-                    <h5 class="card-title">
+                    <!-- <h5 class="card-title">
                         Subject:
                         <span class="badge badge-danger">{{ testModel.subject }}</span>
-                    </h5>
+                    </h5> -->
                     <h5 class="card-title">
                         Title:
                         <span class="badge badge-danger">{{ testModel.testname }}</span>
@@ -55,8 +55,8 @@
                 justify-content-between
                 align-items-center
               ">
-                            Total Questions:{{ testModel.totalque }}
-                            <h5><span class="badge badge-danger"></span></h5>
+                            Total Questions:
+                            <h5><span class="badge badge-danger">{{ queList.length }}</span></h5>
                         </li>
                         <li class="
                 list-group-item
@@ -146,24 +146,25 @@
                     <div>
 
 
-                        <h2 *ngIf="dt.question != undefined ">{{ dt.question }}</h2>
+                        <h4 *ngIf="dt.question != undefined && dt.quetype == 'MCQ'">{{ dt.question }}</h4>
 
-                        <div>
+                        <div *ngIf="dt.quetype == 'MCQ'">
                             <div *ngFor="let op of dt.options">
-                                <div class="row">
-                                    <div class="col col-sm-12" *ngIf="op.optionlist != undefined">
-                                        <label>
-                                            <input name="radioOpt" type="radio" value="{{op.optionlist}}"
-                                                (change)="onItemChange(op , dt)" />
-                                            {{op.optionlist}}
-                                        </label>
-                                    </div>
-                                    <!-- <div class="col col-sm-12" *ngIf="op.imageoption != 'null' || op.imageoption != ' ' ">
-                                        <img src="http://31.220.59.174:3000{{op.imageoption}}">
-                                    </div> -->
+                              <div class="row">
+                                <div class="col col-sm-12" *ngIf="op.optionlist != undefined">
+                                  <label><input name="radioOpt" type="radio" value="{{op.optionlist}}"
+                                      (change)="onItemChange(op , dt)" /> {{
+                                    op.optionlist
+                                    }} </label>
                                 </div>
+                                <div class="col col-sm-12"
+                                  *ngIf="(op.imageoption != null &&  op.optionlist == undefined )|| (op.imageoption != 'null' &&  op.optionlist == undefined)">
+                                  <img *ngIf="op.imageoption != null  || op.imageoption != 'null'"
+                                    src="http://31.220.59.174:3000{{op.imageoption}}">
+                                </div>
+                              </div>
                             </div>
-                        </div>
+                          </div>
 
                         <!-- <div *ngIf="dt.quetype != 'MCQ'" class="row">
                             <div class="col col-sm-12">

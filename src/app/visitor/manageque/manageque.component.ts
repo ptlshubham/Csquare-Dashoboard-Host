@@ -49,12 +49,17 @@ export class ManagequeComponent implements OnInit {
   standardName: string = '';
   subjetId: number;
   subjectName: string = '';
-
+  totalRecords: string;
+  page: Number = 1;
+  testpage: Number = 1;
+  quePage:Number=1;
   subID: any;
   std: any[];
+  queList:any=[];
   public chapater: Chapater[] = [];
   istestcr: boolean = false;
   chapId: any;
+  items = [];
   selectedCha: any;
   constructor(
     private manageService: ManageService,
@@ -66,10 +71,11 @@ export class ManagequeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.addOptions = [{ id: this.val, name: '', }];
+    this.addOptions = [{ id: 0, name: '' }, { id: 1, name: '' }, { id: 2, name: '' }, { id: 3, name: '' }];
     this.val++;
     this.addAnswers = [{ name: this.ansVal }];
     this.ansVal++;
+
   }
   createChapTest() {
     this.istestcr = true;
@@ -77,14 +83,14 @@ export class ManagequeComponent implements OnInit {
     this.addQuestion = false;
     this.checkedQuestionList = [];
   }
-  addOptionsList() {
-    this.val++;
-    this.addOptions.push({ id: this.val, name: '', image: '' });
-  }
+  // addOptionsList() {
+  //   this.val++;
+  //   this.addOptions.push({ id: this.val, name: '', image: '' });
+  // }
 
-  removeOptionsList(val) {
-    this.addOptions.splice(val, 1);
-  }
+  // removeOptionsList(val) {
+  //   this.addOptions.splice(val, 1);
+  // }
 
   addAnswersList() {
     this.ansVal++;
@@ -142,12 +148,39 @@ export class ManagequeComponent implements OnInit {
     });
   }
   getVisitorTest() {
-    this.VisitorService.getVisitorTestList(this.selectedSubjectId).subscribe((data: any) => {
+    this.selectedSubjectId;
+    let data = {
+      subid: this.selectedSubjectId,
+      stdid: this.stdId
+    };
+    
+    this.VisitorService.getVisitorTestList(data).subscribe((data: any) => {
       this.visitorTestList = data;
+      
     });
   }
   ViewVisitorTestQue(data) {
+    this.subjects.forEach(element => {
+      if (element.id == data.subjectId) {
+        this.selectedSubject = element.subject;
+        
+      }
+      // this.getVisitorTest();
+    });
+    this.stdlist.forEach(element => {
+      if (element.id == data.stdid) {
+        this.selectedstd = element.stdname;
+      }
+      // this.getSubject();
+    })
     this.questionModel = data;
+    this.VisitorService.getVisitorTestQue(data).subscribe((res:any)=>{
+      this.queList = res;
+      debugger
+    })
+   
+
+
   }
 
   openQuestionList(sub) {
@@ -160,13 +193,14 @@ export class ManagequeComponent implements OnInit {
       }
     })
     this.subjectId = sub.id;
+    this.subjectName = sub.subject;
     this.showChapter = true;
     this.questionList = false;
     this.addQuestion = false;
     this.istestcr = false;
     // this.standardName = this.std[0].stdname;
     // this.standardId = this.std[0].id;
-    // this.subjectName = sub.subject;
+
 
     // this.subID = sub.id;
     this.getChapaters();
@@ -246,6 +280,8 @@ export class ManagequeComponent implements OnInit {
     this.questionList = false;
     this.submitButton = false;
     this.issubjectlist = false;
+    this.istestcr = false;
+    this.showChapter = false;
   }
   backToHome() {
     this.viewTestFlag = false;
@@ -268,22 +304,25 @@ export class ManagequeComponent implements OnInit {
     this.viewTestFlag = false;
   }
 
-  saveNewQuestion(data) {
 
+
+  saveNewQuestion(data) {
+    debugger
     this.addOptions.forEach(element => {
       if (element.image == '') {
         element.image == null
       }
     });
     data.options = this.addOptions;
-    data.answer = this.addAnswers;
+    // data.answer = this.addAnswers;
 
     data.stdid = this.stdId;
-    data.subid = this.subID;
+    data.subid = this.subjectId;
     data.chapid = this.chapId;
     // data.quetype = this.selectedQue;
+    debugger
 
-    this.questionService.saveQueList(data).subscribe((data1: any) => {
+    this.VisitorService.saveVisitorQue(data).subscribe((data1: any) => {
       this.apiService.showNotification('top', 'right', 'New Question Added Successfully.', 'success');
       this.questionList = true;
       this.addQuestion = false;
@@ -297,9 +336,11 @@ export class ManagequeComponent implements OnInit {
   getQueList(id) {
     this.questionService.getAllQuestion(id).subscribe((data: any) => {
       this.que = data;
+      debugger
       this.quelist = data;
+
       // for (let i = 0; i < this.que.length; i++) {
-      //   this.que[i].index = i + 1;
+      //   this.que[i].index = i + 1;x
       // }
 
     });
@@ -360,27 +401,35 @@ export class ManagequeComponent implements OnInit {
     this.getCheckedItemList();
   }
 
-  isAllSelected() {
-    this.isMasterSel = this.que.every(function (item: any) {
-      return item.isSelected == true;
+  isAllSelected(val) {
+    debugger
+    this.que.forEach(element => {
+      if ((element.id == val.id) && val.isactive) {
+        element.isSelected = val.isactive;
+      }
+      else {
+        element.isSelected = false;
+      }
     })
-    this.isMasterSel = true;
     this.getCheckedItemList();
   }
-
   getCheckedItemList() {
-    this.checkedQuestionList = [];
-    this.duration = 0;
-    this.totalMarks = 0;
-    this.totalQuestions = 0;
+    debugger
+    // this.checkedQuestionList = [];
+    // for (let i = 0; i < this.checkedQuestionList.length; i++) {
+    //   this.checkedQuestionList[i].index = i + 1;
+    // }
+    // this.duration = 0;
+    // this.totalMarks = 0;
+    // this.totalQuestions = 0;
     for (var i = 0; i < this.que.length; i++) {
-      if (this.que[i].isactive) {
+      if (this.que[i].isSelected) {
         this.checkedQuestionList.push(this.que[i]);
-        for (var i = 0; i < this.checkedQuestionList.length; i++) {
-          this.checkedQuestionList[i].isactive = this.isMasterSel;
-        }
-        this.totalMarks = this.totalMarks + this.que[i].marks;
-        this.duration = this.duration + this.que[i].time;
+      }
+    }
+    for (let i = 0; i < (this.checkedQuestionList.length - 1); i++) {
+      if (this.checkedQuestionList[i].id == this.checkedQuestionList[i + 1].id) {
+        this.checkedQuestionList.splice(i, 1);
       }
     }
     this.totalQuestions = this.checkedQuestionList.length;

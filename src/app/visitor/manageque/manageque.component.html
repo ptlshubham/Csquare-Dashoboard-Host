@@ -74,7 +74,7 @@
                 <div class="col-md-2">
                     <label>Select Standard</label>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="dropdown form-group">
                         <button class="dropdown-toggle btn btn-round btn-block" type="button" name="dropdownMenuButton"
                             id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -89,6 +89,9 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="col-md-2 ">
+                    <label>Selected Subject</label>:{{subjectName}}
                 </div>
             </div>
 
@@ -119,7 +122,7 @@
             </div>
         </div>
     </div> -->
-    <div class="row" *ngIf="!showChapter">
+    <div class="row" *ngIf="!showChapter && !viewTestFlag">
         <div class="col-lg-2 col-md-6 col-sm-6" *ngFor="let s of subjects; let i = index">
             <div class="card card-stats" (click)="openQuestionList(s)" [style.box-shadow]="s.color">
                 <div class="card-body">
@@ -145,7 +148,7 @@
             </div>
         </div>
     </div>
-    <div class="row" *ngIf="showChapter">
+    <div class="row" *ngIf="showChapter && !istestcr">
         <div class="col-lg-2 col-md-6 col-sm-6" *ngFor="let c of chapater; let i = index">
             <div class="card card-stats" (click)="openChapterBox(c)" [style.box-shadow]="c.color">
                 <div class="card-body">
@@ -177,10 +180,10 @@
                     <h4 class="card-title">Manage Questionnaire</h4>
                 </div>
                 <div class="ml-md-auto">
-                    <button type="submit" class="btn btn-success btn-round" data-toggle="modal" data-target="#testModal"
+                    <!-- <button type="submit" class="btn btn-success btn-round" data-toggle="modal" data-target="#testModal"
                         *ngIf="isMasterSel" (click)="addTest()">
                         <i class="fa fa-plus" aria-hidden="true"></i> Add Test
-                    </button>
+                    </button> -->
                     <button type="submit" class="btn btn-info btn-round" (click)="openQuestionBox()">
                         <i class="fa fa-plus" aria-hidden="true"></i> Add Question
                     </button>
@@ -207,7 +210,7 @@
                         <th class="text-right">Actions</th>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of que | paginate: { itemsPerPage: 5, currentPage: p }">
+                        <tr *ngFor="let item of que | paginate: { id:'listing_pagination',itemsPerPage: 2, currentPage: page,totalItems:totalRecords }">
                             <td>
                                 <div class="form-check">
                                     <label class="form-check-label">
@@ -239,8 +242,9 @@
         <div class="card-footer">
             <div class="row">
                 <div class="ml-md-auto">
-                    <pagination-controls (pageChange)="p = $event" autoHide="true" responsive="true">
+                    <pagination-controls id="listing_pagination" maxSize="5" directionLinks="true" (pageChange)="page= $event" autoHide="true" responsive="true">
                     </pagination-controls>
+                    <!-- <jw-pagination [items]="items" (changePage)="onChangePage($event)"></jw-pagination> -->
                 </div>
             </div>
         </div>
@@ -259,7 +263,8 @@
                 <div class="row">
                     <div class="col-md-8">
                         <div class="form-group">
-                            <label class="col-form-label" for="question">Question</label>
+                            <label class="col-form-label" for="question"
+                                style="font-size: 1rem;font-weight: bold;color:black">Question</label>
                             <br />
                             <textarea class="form-control" id="question" rows="3" name="question"
                                 placeholder="Enter a question here" [(ngModel)]="questionModel.question"></textarea>
@@ -268,7 +273,8 @@
                     <div class="col-md-4"></div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="col-form-label" for="answer">Marks</label>
+                            <label class="col-form-label" for="answer"
+                                style="font-size: 1rem;font-weight: bold;color:black">Marks</label>
                             <input type="text" class="form-control" id="marks" name="marks" placeholder="Enter Marks"
                                 [(ngModel)]="questionModel.marks" />
                         </div>
@@ -276,54 +282,48 @@
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="col-form-label" for="duration">Time Duration</label>
+                            <label class="col-form-label" for="duration"
+                                style="font-size: 1rem;font-weight: bold;color:black">Time Duration</label>
                             <input type="text" class="form-control" id="duration" name="duration"
                                 placeholder="Enter Time Duration" [(ngModel)]="questionModel.time" />
                         </div>
                     </div>
                 </div>
+
                 <div class="row" *ngFor="let add of addOptions; let ind = index">
                     <div class="col-md-4">
-                        <label class="col-form-label" for="question">
+                        <label class="col-form-label" for="question"
+                            style="font-size: 1rem;font-weight: bold;color:black">
                             Options {{ ind + 1 }}</label>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="options" name="options"
-                                placeholder=" Enter option value" [(ngModel)]="add.option" />
+                            <input type="text" class="form-control" name="{{add.id}}" placeholder=" Enter option value"
+                                [(ngModel)]="add.optionlist" />
                         </div>
                     </div>
-                    <div class="col-md-1">
-                        <i class="fa fa-plus-circle" aria-hidden="true" (click)="addOptionsList()"
-                            style="font-size: 33px !important; margin-top: 54% !important"></i>
-                    </div>
-                    <div class="col-md-1" *ngIf="ind > 0">
-                        <i class="fa fa-times-circle" aria-hidden="true" (click)="removeOptionsList(ind)" style="
-                      font-size: 33px !important;
-                      margin-top: 54% !important;
-                      margin-left: -80px !important;
-                    "></i>
-                    </div>
                 </div>
-                <div class="row" *ngFor="let add of addAnswers; let ind = index">
+                <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="col-form-label" for="answer">Answer {{ ind + 1 }}
+                            <label class="col-form-label" for="answer"
+                                style="font-size: 1rem;font-weight: bold;color:black">Answer
                             </label>
                             <input type="text" class="form-control" id="answer" name="answer"
-                                placeholder="Enter correct answer" [(ngModel)]="add.answer" />
+                                placeholder="Enter correct answer" [(ngModel)]="questionModel.answer" />
                         </div>
                     </div>
-                    <div class="col-md-1">
-                        <i class="fa fa-plus-circle" aria-hidden="true" (click)="addAnswersList()"
-                            style="font-size: 33px !important; margin-top: 54% !important"></i>
+                    <!-- <div class="col-md-1">
+                      <i class="fa fa-plus-circle" aria-hidden="true" (click)="addAnswersList()"
+                        style="font-size: 33px !important; margin-top: 54% !important"></i>
                     </div>
                     <div class="col-md-1" *ngIf="ind > 0">
-                        <i class="fa fa-times-circle" aria-hidden="true" (click)="removeAnswersList(ind)" style="
-                      font-size: 33px !important;
-                      margin-top: 54% !important;
-                      margin-left: -80px !important;
-                    "></i>
-                    </div>
+                      <i class="fa fa-times-circle" aria-hidden="true" (click)="removeAnswersList(ind)" style="
+                          font-size: 33px !important;
+                          margin-top: 54% !important;
+                          margin-left: -80px !important;
+                        "></i>
+                    </div> -->
                 </div>
+
 
             </form>
         </div>
@@ -418,7 +418,7 @@
                                             </thead>
                                             <tbody>
                                                 <tr
-                                                    *ngFor="let sq of checkedQuestionList | paginate: { itemsPerPage: 5, currentPage: p } ;let i = index;let j = index">
+                                                    *ngFor="let sq of checkedQuestionList | paginate: { id:'listing_paginatio',itemsPerPage: 10, currentPage: quePage,totalItems:totalRecords } ;let i = index;let j = index">
                                                     <td class="text-center">{{ i + 1 }}</td>
                                                     <td>{{ sq.question }}</td>
 
@@ -440,9 +440,11 @@
                                     <div class="card-footer">
                                         <div class="row">
                                             <div class="ml-md-auto">
-                                                <pagination-controls (pageChange)="p = $event" autoHide="true"
+                                                <!-- <pagination-controls (pageChange)="pa= $event" autoHide="true"
                                                     responsive="true">
-                                                </pagination-controls>
+                                                </pagination-controls> -->
+                                                <pagination-controls id="listing_paginatio" maxSize="5" directionLinks="true" (pageChange)="quePage= $event" autoHide="true" responsive="true"></pagination-controls>
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -494,10 +496,10 @@
                         <i class="fa fa-plus" aria-hidden="true"></i> Add Test
                     </button>
                 </div>
-                <div class="ml-md-auto"><button type="submit" class="btn btn-info btn-round"
+                <!-- <div class="ml-md-auto"><button type="submit" class="btn btn-info btn-round"
                         (click)="openQuestionBox()">
                         <i class="fa fa-plus" aria-hidden="true"></i> Add Question
-                    </button></div>
+                    </button></div> -->
                 <div class="ml-md-auto">
                     <div class="form-outline" style="padding-top: 7%;">
                         <input type="search" id="form1" class="form-control" placeholder="search" [(ngModel)]="search"
@@ -528,7 +530,7 @@
                         <th class="text-right">Actions</th>
                     </thead>
                     <tbody>
-                        <tr *ngFor=" let item of que | paginate: { itemsPerPage: 10, currentPage: p };">
+                        <tr *ngFor=" let item of que | paginate: {  id:'test_lisiting',itemsPerPage: 10, currentPage: testpage,totalItems:totalRecords };">
                             <td>
                                 <div class="form-check">
                                     <label class="form-check-label">
@@ -570,8 +572,9 @@
         <div class="card-footer">
             <div class="row">
                 <div class="ml-md-auto">
-                    <pagination-controls (pageChange)="p = $event" autoHide="true" responsive="true">
-                    </pagination-controls>
+                    <!-- <pagination-controls (pageChange)="paa= $event" autoHide="true" responsive="true">
+                    </pagination-controls> -->
+                    <pagination-controls id="test_lisiting" maxSize="5" directionLinks="true" (pageChange)="testpage= $event" autoHide="true" responsive="true"></pagination-controls>
                 </div>
             </div>
         </div>

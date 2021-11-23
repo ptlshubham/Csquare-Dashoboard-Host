@@ -113,7 +113,8 @@ export class ApiService {
   public static getOtpVisitorURL: string = ApiService.HOST_URL + '/authenticate/GetOtpVisitorURL';
   public static updateVisitorRegURL: string = ApiService.HOST_URL + '/admin/UpdateVisitorReg';
   public static saveVisitorLoginURL: string = ApiService.HOST_URL + '/admin/VisitorLogin';
-  // public static getSatusofTestURL: string = ApiService.HOST_URL + '/admin/GetSatusofTest';
+  public static GetTestDetailsURL : string = ApiService.HOST_URL + '/admin/GetVisitorTest';
+  //  public static GetViewVisitorTestListURL: string = ApiService.HOST_URL + '/admin/GetViewVisitorTestList';
   showNotification(from, align, msg, color) {
 
 

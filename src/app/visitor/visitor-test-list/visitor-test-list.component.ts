@@ -27,6 +27,7 @@ export class VisitorTestListComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((res: any) => {
       this.subjectId = res.subid;
       this.stdid = res.stdid;
+      debugger
 
       // this.getStandardList();
     })
@@ -45,7 +46,7 @@ export class VisitorTestListComponent implements OnInit {
   getSubject(id) {
     this.manageService.getSubjectList(id).subscribe((data: any) => {
       this.subjects = data;
-      debugger
+
     });
   }
   selectSubjectList(id) {
@@ -59,10 +60,29 @@ export class VisitorTestListComponent implements OnInit {
     this.getVisitorTest();
   }
   getVisitorTest() {
-    this.VisitorService.getVisitorTestList(this.subjectId).subscribe((data: any) => {
+    let data = {
+      stdid: localStorage.getItem('stdid'),
+      subid: this.subjectId
+    }
+    this.VisitorService.getVisitorTestList(data).subscribe((data: any) => {
       this.visitorTestList = data;
       debugger
     });
+  }
+  studentTest(data) {
+    debugger
+    this.router.navigate(['visitor/visitorexam'],{
+      queryParams:{
+        id:data.id
+      }
+    });
+    // this.testId = data.id
+    // // this.testModel.totalque = ;
+    // this.testModel.subject = data.subject;
+    // this.testModel.testname = data.testname;
+    // this.testModel.time = data.totalminute;
+    // this.testModel.marks = data.totalmarks;
+    // this.testInfoBoxFlag = true;
   }
 
 }

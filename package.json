@@ -70,6 +70,7 @@
     "jasny-bootstrap": "4.0.0",
     "jquery": "^3.5.1",
     "jvectormap": "2.0.4",
+    "jw-angular-pagination": "^1.2.0",
     "jw-bootstrap-switch-ng2": "2.0.5",
     "ng2-charts": "^2.4.3",
     "ngx-chips": "2.1.0",

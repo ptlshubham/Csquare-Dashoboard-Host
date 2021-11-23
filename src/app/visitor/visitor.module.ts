@@ -9,6 +9,7 @@ import { VisitorexamComponent } from './visitorexam/visitorexam.component';
 import { VisitorlistComponent } from './visitorlist/visitorlist.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { VisitorTestListComponent } from './visitor-test-list/visitor-test-list.component';
+import { JwPaginationModule } from 'jw-angular-pagination';
 
 
 
@@ -18,6 +19,7 @@ import { VisitorTestListComponent } from './visitor-test-list/visitor-test-list.
   imports: [
     CommonModule,
     FormsModule,
+    JwPaginationModule,
     NgxPaginationModule,
     RouterModule.forChild(VisitorRoutes),
   ]

@@ -65,11 +65,11 @@ export class CalendarComponent implements OnInit {
   addEventsDetails() {
     this.calendarModel.date = this.selected;
     this.calendarModel.active = true;
-    debugger
+     
     this.calenderService.saveEventsList(this.calendarModel).subscribe((data: any) => {
       this.apiService.showNotification('top', 'right', 'Event Added Successfully.', 'success');
-      this.calendarModel.title = "";
-      this.getEventDetails();
+      location.reload();
+      // this.getEventDetails();
 
     })
   }

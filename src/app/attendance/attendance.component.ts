@@ -99,27 +99,33 @@ export class AttendanceComponent implements OnInit {
     });
   }
   isSelected(val) {
-    let data = {
-      stuid: val.id,
-      date: this.selected,
-      title: this.attandanceModel.title
-    };
-    this.atd.push(data);
+    // if (this.attandanceModel.title == undefined) {
+    //   this.apiService.showNotification('top', 'center', 'Please Select Title.', 'danger');
+    
+    // }
+    // else{
+      let data = {
+        stuid: val.id,
+        date: this.selected,
+        // title: this.attandanceModel.title
+      };
+      this.atd.push(data);
+    // }
+   
   }
 
   isAllSelected(val) {
-    if (this.attandanceModel.title == undefined) {
-      this.apiService.showNotification('top', 'center', 'Please Select Title.', 'danger');
-    }
-    else {
-
+    // if (this.attandanceModel.title == undefined) {
+    //   this.apiService.showNotification('top', 'center', 'Please Select Title.', 'danger');
+    // }
+    // else {
       if (val == true) {
         this.students.forEach(element => {
           element.checked = true;
           let data = {
             stuid: element.id,
             date: this.selected,
-            title: this.attandanceModel.title
+            // title: this.attandanceModel.title
           };
           this.atd.push(data);
         })
@@ -132,9 +138,10 @@ export class AttendanceComponent implements OnInit {
       }
     }
 
-  }
+  // }
 
   handleDateClick(arg) {
+    debugger
     if (this.stdId) {
       this.getStudent();
       this.showModal = true;
@@ -150,7 +157,9 @@ export class AttendanceComponent implements OnInit {
     this.atd = [];
   }
   addStudentAttandance() {
-    this.atd;
+    this.atd.forEach(element => {
+      element.title = this.attandanceModel.title;
+    });
     this.calendarService.saveAttandanceList(this.atd).subscribe((data: any) => {
       this.apiService.showNotification('top', 'right', 'Attandance Added Successfully.', 'success');
       this.showModal = false;

@@ -153,6 +153,7 @@ export class QuestionComponent implements OnInit {
       this.subjects.forEach(element => {
         this.manageService.getChapatersList(element.id).subscribe((res: any) => {
           element.chapter = res;
+          debugger
           element.color = '3px 3px 5px 5px #ebf0ec';
         });
         // this.questionService.getAllQuestion(element.id).subscribe((res: any) => {

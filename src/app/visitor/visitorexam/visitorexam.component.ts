@@ -5,6 +5,7 @@ import { ExamService } from 'app/exam/exam.service';
 import { Question } from 'app/question/question.model';
 import { SubmittedTest } from 'app/testportal/submittest.model';
 import { TestportalService } from 'app/testportal/testportal.service';
+import { VisitorService } from '../visitor.service';
 
 @Component({
   selector: 'app-visitorexam',
@@ -28,14 +29,18 @@ export class VisitorexamComponent implements OnInit {
     private testportalService: TestportalService,
     private examService: ExamService,
     private activatedRoute: ActivatedRoute,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private VisitorService: VisitorService,
   ) {
     // this.getStudentTest();
     this.activatedRoute.queryParams.subscribe((res: any) => {
-      this.subjectId = res.subid;
-      this.stdid = res.stdid;
-      this.uid = res.uid;
-      this.startStuentExam();
+      // this.subjectId = res.subid;
+      // this.stdid = res.stdid;
+      // this.uid = res.uid;
+      // this.startStuentExam();
+      this.testId = res.id;
+      this.getStudentTest()
+      
 
     })
   }
@@ -43,10 +48,21 @@ export class VisitorexamComponent implements OnInit {
   ngOnInit(): void {
   }
   getStudentTest() {
-    // this.examService.getActiveStudentTest().subscribe((data: any) => {
-    //   this.studentTestList = data;
+    let data={
+      id:this.testId
+    }
+    this.VisitorService.getTestDetails(data).subscribe((data: any) => {
+      this.studentTestList = data;
+      
+      // this.testModel.subject = data.subject;
+    this.testModel.testname = data[0].testname;
+    this.testModel.time = data[0].totalminute;
+    this.testModel.marks = data[0].totalmarks;
+    this.testInfoBoxFlag = true;
+    this.gettestquestion();
+    debugger
 
-    // });
+    });
   }
   studentTest(data) {
 
@@ -58,28 +74,36 @@ export class VisitorexamComponent implements OnInit {
     this.testModel.marks = data.totalmarks;
     this.testInfoBoxFlag = true;
   }
+  gettestquestion(){
+    debugger
+    let data1 = {
+      id: this.testId,
+    }
+    this.examService.getViewVisitorTest(data1).subscribe((data: any) => {
+      this.queList = data;
+      
+       
+      this.queList.forEach(element => {
+        element.uid = this.uid;
+        if(element.quetype == 'MCQ'){
+          this.examService.getOptionValueVisitor(element.id).subscribe((res: any) => {
+            element.options = res;
+            
+             
+          })
+        }
+       
+      });
+      // this.testportalService.updatePendingTest(this.testId).subscribe((req) => {
+      // })
+    });
+  }
   startStuentExam() {
 
     this.testInfoBoxFlag = false;
     this.ruleBoxFlag = false;
     this.questionBoxFlag = true;
-    let data1 = {
-      subid: this.subjectId,
-      stdid: this.stdid
-    }
-    this.examService.getViewVisitorTest(data1).subscribe((data: any) => {
-      this.queList = data;
-       
-      this.queList.forEach(element => {
-        element.uid = this.uid;
-        this.examService.getOptionValueVisitor(element.id).subscribe((res: any) => {
-          element.options = res;
-           
-        })
-      });
-      // this.testportalService.updatePendingTest(this.testId).subscribe((req) => {
-      // })
-    });
+  
   }
   showRulesBox() {
     this.questionBoxFlag = false;

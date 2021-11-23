@@ -153,6 +153,7 @@ export class DashboardComponent implements OnInit {
         this.stdlist.forEach(element => {
           this.manageService.getSubjectList(element.id).subscribe((res: any) => {
             element.subjectList = res;
+            
           })
         })
         // this.stdlist.forEach(element => {

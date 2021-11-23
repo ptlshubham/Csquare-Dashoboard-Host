@@ -102,7 +102,7 @@
                                                     <td>
                                                         <div class="form-check">
                                                             <label class="form-check-label">
-                                                                <input class="form-check-input"
+                                                                <input class="form-check-input" [disabled]="!attandanceModel.title"
                                                                     [(ngModel)]="item.checked" name="list_name"
                                                                     (change)="isSelected(item)" type="checkbox" />
                                                                 <span class="form-check-sign"></span>
@@ -121,7 +121,7 @@
                                 <div class="card-footer">
                                     <div class="row">
                                         <div class="ml-md-auto">
-                                            <pagination-controls (pageChange)="p = $event" autoHide="true"
+                                            <pagination-controls (pageChange)="p = $event" autoHide="true" maxSize="5"
                                                 responsive="true"></pagination-controls>
                                         </div>
                                     </div>

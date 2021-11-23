@@ -141,15 +141,34 @@
           <label class="col-md-2 col-form-label">Email Id</label>
           <div class="col-md-4">
             <div class="form-group">
-              <input type="text" class="form-control" id="email" [(ngModel)]="registerModel.email" name="email"
-                placeholder="Enter Email Id" />
+                <input type="text" class="form-control" id="email" [(ngModel)]="registerModel.email" name="email"
+                placeholder="Enter Email Id" required value=""
+                pattern="^[/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/]+$" (focus)="focus = true"
+                #email="ngModel" />
+            </div>
+            <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+              <div *ngIf="email.errors.required">
+                Email Address is required
+              </div>
+              <div [hidden]="!email.errors('pattern')">
+                Enter Only Characters and Numbers.
+              </div>
             </div>
           </div>
           <label class="col-md-2 col-form-label">Password</label>
           <div class="col-md-4">
             <div class="form-group">
-              <input type="password" class="form-control" id="password" [(ngModel)]="registerModel.password" name="password"
-                placeholder="Enter Password" />
+                <input type="password" class="form-control" id="password" [(ngModel)]="registerModel.password"
+                name="password" placeholder="Enter Password" required value="" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,15}$"
+                (focus)="focus = true" #password="ngModel" />
+            </div>
+            <div *ngIf="password.dirty || password.touched" class="alert alert-danger">
+              <div *ngIf="password.errors.required">
+                password  is required
+              </div>
+              <div *ngIf="password.errors.pattern">
+                Enter at least one Uppercase and Lowercase Characters,Numbers and Special Characters.
+              </div>
             </div>
           </div>
           <label class="col-sm-2 col-form-label">Select Standard List</label>
@@ -162,26 +181,26 @@
             </div>
           </div>
         </div>
-        <div>
-          <div class="row" *ngFor="let add of selectStdsList">
+        <div class="row" *ngFor="let add of selectStdsList">
           <label class="col-md-2 col-form-label">Selected Standard</label>
+
           <div class="col-md-2">
             <div class="form-group">
               <label type="text" class="form-control" name="selStds">{{add.selStds}}</label>
             </div>
           </div>
+
           <label class="col-md-2 col-form-label">Select Subjects</label>
           <div class="col-md-4">
             <div style="border: 1px #dddddd solid !important">
-              <angular2-multiselect [data]="add.subdata" [(ngModel)]="add.selsubjects" [settings]="dropdownSettings"
-                (onSelect)="onsubItemSelect($event,add)" (onDeSelect)="OnItemDeSelectSub($event,add)" name="subs"
-                (onDeSelectAll)="onDeSelectAllSub($event,add)"></angular2-multiselect>
+              <angular2-multiselect [data]="add.subdata" [data]="add.subdata" [(ngModel)]="add.subject" [settings]="dropdownSettings"
+                (onSelect)="onsubItemSelect($event,add)" (onDeSelect)="OnItemDeSelect($event)" name="subs"
+                (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect>
             </div>
+
           </div>
           <label class="col-md-2 col-form-label">{{add.subsel}}</label>
         </div>
-        </div>
-        
 
         <!-- <div class="row" *ngFor="let add of addStdFields;let ind=index">
                     <label class="col-md-2 col-form-label">Selected Standard</label>
@@ -378,24 +397,27 @@
                     </angular2-multiselect>
                   </div>
                 </div>
+
                 <div class="row" *ngFor="let add of selectStdsList">
-                  <label class="col-md-2 col-form-label">Selected Standard</label>
-                  <div class="col-md-2">
+                  <label class="col-sm-2 col-form-label">Selected Standard</label>
+
+                  <div class="col-sm-2">
                     <div class="form-group">
                       <label type="text" class="form-control" name="selStds">{{add.selStds}}</label>
                     </div>
                   </div>
-                  <label class="col-md-2 col-form-label">Select Subjects</label>
-                  <div class="col-md-4">
+
+                  <label class="col-sm-2 col-form-label">Select Subjects</label>
+                  <div class="col-sm-4">
                     <div style="border: 1px #dddddd solid !important">
-                      <angular2-multiselect [data]="add.subdata" [(ngModel)]="add.selsubjects" [settings]="dropdownSettings"
-                        (onSelect)="onsubItemSelect($event,add)" (onDeSelect)="OnItemDeSelectSub($event,add)" name="subs"
-                        (onDeSelectAll)="onDeSelectAllSub($event,add)"></angular2-multiselect>
+                      <angular2-multiselect [data]="add.subdata" [(ngModel)]="add.subject" [settings]="dropdownSettings"
+                        (onSelect)="onsubItemSelect($event,add)" (onDeSelect)="OnItemDeSelect($event)" name="subs"
+                        (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect>
                     </div>
+
                   </div>
-                  <label class="col-md-2 col-form-label">{{add.subsel}}</label>
+                  <label class="col-sm-2 col-form-label">{{add.subsel}}</label>
                 </div>
-        
 
               </div>
             </form>
@@ -755,7 +777,7 @@
             </div>
             <div *ngIf="password.errors && (password.dirty || password.touched)" class="alert alert-danger">
               <div *ngIf="password.errors.required">
-                General Number is required
+                password  is required
               </div>
               <div [hidden]="!password.errors('pattern')">
                 Enter at least one Uppercase and Lowercase Characters,Numbers and Special Characters.

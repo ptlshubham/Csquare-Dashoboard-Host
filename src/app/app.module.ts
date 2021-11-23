@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HashLocationStrategy, LocationStrategy  } from '@angular/common';
 import { AppComponent } from './app.component';
-
+import { JwPaginationModule } from 'jw-angular-pagination';
 import { SidebarModule } from './sidebar/sidebar.module';
 import { FixedPluginModule } from './shared/fixedplugin/fixedplugin.module';
 import { FooterModule } from './shared/footer/footer.module';
@@ -48,6 +48,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
         FixedPluginModule,
         DataTablesModule,
         HttpClientModule,
+        JwPaginationModule,
         QuestionModule,
         ColorPickerModule,
         FullCalendarModule,

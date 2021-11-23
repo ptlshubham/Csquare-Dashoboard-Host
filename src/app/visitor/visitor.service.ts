@@ -27,7 +27,7 @@ export class VisitorService {
         return this.httpClient.post<any>(ApiService.updateVisitorRegURL, admin);
     }
     saveVisitorQue(data): Observable<any> {
-
+        debugger
         return this.httpClient.post<any>(ApiService.saveVisitorQueURL, data);
     }
     getVisitorQue(id) {
@@ -54,12 +54,8 @@ export class VisitorService {
 
         return this.httpClient.post<any>(ApiService.updateVisitorInformURL, data);
     }
-    getVisitorTestList(id) {
+    getVisitorTestList(data) {
 
-        let data = {
-            id: id
-
-        }
         return this.httpClient.post<any>(ApiService.getVisitorTestListURL, data)
     }
 
@@ -69,8 +65,14 @@ export class VisitorService {
         }
         return this.httpClient.post<any>(ApiService.removeVisitorListURL, data);
     }
+    getTestDetails(data){
+        return this.httpClient.post(ApiService.GetTestDetailsURL,data);
+    }
     getOtp(admin: RegisterVisitor): Observable<any> {
         return this.httpClient.post<any>(ApiService.getOtpVisitorURL, admin)
+    }
+    getVisitorTestQue(data){
+        return this.httpClient.post(ApiService.GetViewVisitorTestListURL,data);
     }
 
 }
