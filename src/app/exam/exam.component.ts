@@ -255,12 +255,15 @@ export class ExamComponent implements OnInit {
     });
   }
   ViewTestQue(val) {
+    
+     this.questionModel = val;
     this.examService.getViewTest(val.id).subscribe((data: any) => {
       this.queList = data;
+      debugger
       for (let i = 0; i < this.queList.length; i++) {
         this.queList[i].index = i + 1;
       }
-      this.questionModel = val;
+     
       this.questionModel.totalque = data.length;
       this.questionModel.subname = this.selectedSubject;
       this.questionModel.stdname = this.selectedStd;

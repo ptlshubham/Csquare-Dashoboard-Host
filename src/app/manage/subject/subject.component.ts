@@ -89,14 +89,19 @@ export class SubjectComponent implements OnInit {
     })
   }
   saveSubject(data) {
-       
     this.addSubjects.forEach(element => {
       element.id = this.stdId
     });
     this.manageService.addSubject(this.addSubjects).subscribe((data: any) => {
-      this.addSubjects = [{ name: this.val }];
-      this.apiService.showNotification('top', 'right', 'Subject added Successfully.', 'success');
-      this.getSubject(this.stdId);
+      if(data == 'success'){
+        this.addSubjects = [{ name: this.val }];
+        this.apiService.showNotification('top', 'right', 'Subject added Successfully.', 'success');
+        this.getSubject(this.stdId);
+      }
+      else{
+        this.apiService.showNotification('top', 'center', 'Subject Already Added.', 'danger');
+      }
+     
     })
   }
   getSubject(id) {
@@ -108,17 +113,13 @@ export class SubjectComponent implements OnInit {
     });
   }
   editSubject(data) {
-
     this.editSub = data;
-
   }
   updateSubject(data) {
-
     this.manageService.updateSubjectList(data).subscribe((req) => {
       this.apiService.showNotification('top', 'right', 'Subject updated Successfully.', 'success');
       this.getSubject(this.stdId);
     })
-
   }
   removeSubject(id) {
     Swal.fire({
@@ -136,7 +137,6 @@ export class SubjectComponent implements OnInit {
       if (result.value == true) {
         this.manageService.removeSubjectList(id).subscribe((req) => {
           this.apiService.showNotification('top', 'right', 'Subject removed Successfully.', 'success');
-        
         })
         Swal.fire(
           {
@@ -170,7 +170,6 @@ export class SubjectComponent implements OnInit {
   }
   addChapaters() {
     this.openChapaters = true;
-
   }
   saveChapatersList() {
     this.chaptList = [];
@@ -186,9 +185,15 @@ export class SubjectComponent implements OnInit {
     this.chapModel.isactive = true;
       
     this.manageService.addChapaters(this.chapModel).subscribe((data: any) => {
-      this.apiService.showNotification('top', 'right', 'Subject added Successfully.', 'success');
-      // this.chapater = data;
-      this.getChapaters();
+      if(data == 'success'){
+        this.apiService.showNotification('top', 'right', 'Chapter added Successfully.', 'success');
+       
+        this.getChapaters();
+      }
+      else{
+        this.apiService.showNotification('top', 'center', 'Chapter added Already.', 'danger');
+      }
+     
     })
   }
   getChapaters() {

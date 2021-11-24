@@ -178,6 +178,10 @@ export class RegisterComponent implements OnInit {
     this.openstudent = true;
     this.openTeachAdd = false;
     this.openStuAdd = true;
+    this.studentregisterModel={};
+    this.studentregisterModel.cactive = false;
+    this.studentregisterModel.mactive = false;
+    this.studentregisterModel.pactive = false;
   }
   closeStudentForm() {
     this.openTeach = true;

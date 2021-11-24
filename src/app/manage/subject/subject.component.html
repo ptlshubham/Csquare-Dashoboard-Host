@@ -248,7 +248,7 @@
             </div>
             <div *ngIf="chapname.errors && (chapname.dirty || chapname.touched)" class="alert alert-danger">
               <div *ngIf="chapname.errors.required">chapter Name is required</div>
-              <div [hidden]="!chapname.errors('pattern')">
+              <div *ngIf="chapname.errors.pattern">
                 Enter Only Characters.
               </div>
             </div>
