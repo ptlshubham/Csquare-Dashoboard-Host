@@ -273,6 +273,7 @@ export class DashboardComponent implements OnInit {
 
     let id= localStorage.getItem('UserId'); 
     this.examService.getActiveStudentTest(id).subscribe((data: any) => {
+       
       this.ActiveTest = data;
       this.ActiveTest.forEach(element=>{
         element.stuid = localStorage.getItem('UserId');

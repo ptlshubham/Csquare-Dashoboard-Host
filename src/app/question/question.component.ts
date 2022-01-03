@@ -153,7 +153,6 @@ export class QuestionComponent implements OnInit {
       this.subjects.forEach(element => {
         this.manageService.getChapatersList(element.id).subscribe((res: any) => {
           element.chapter = res;
-          debugger
           element.color = '3px 3px 5px 5px #ebf0ec';
         });
         // this.questionService.getAllQuestion(element.id).subscribe((res: any) => {
@@ -467,7 +466,6 @@ export class QuestionComponent implements OnInit {
   }
 
   isAllSelected(val) {
-    debugger
     this.que.forEach(element => {
       if ((element.id == val.id) && val.isactive) {
         element.isSelected = val.isactive;
@@ -476,7 +474,6 @@ export class QuestionComponent implements OnInit {
         element.isSelected = false;
       }
     })
-    debugger
     // this.isMasterSel = this.que.every(function (item: any) {
     //   return item.isSelected == true;
     // })
@@ -522,7 +519,6 @@ export class QuestionComponent implements OnInit {
 
   }
   getCheckedItemList() {
-    debugger
     // this.checkedQuestionList = [];
     // for (let i = 0; i < this.checkedQuestionList.length; i++) {
     //   this.checkedQuestionList[i].index = i + 1;

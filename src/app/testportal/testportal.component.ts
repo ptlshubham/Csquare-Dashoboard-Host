@@ -171,7 +171,7 @@ export class TestportalComponent implements OnInit {
       this.queList = data;
       this.testportalService.updatePendingTest(this.testId,this.stuid).subscribe((req) => {
       })
-      // this.setStatusOfTest();
+      this.setStatusOfTest();
       this.queList.forEach(element => {
         if (element.quetype == 'MCQ') {
           this.examService.getOptionValue(element.id).subscribe((res: any) => {
@@ -183,11 +183,11 @@ export class TestportalComponent implements OnInit {
     });
   }
   setStatusOfTest() {
-    // this.attemptTestModel.testid = this.testId;
-    // this.attemptTestModel.stuid = localStorage.getItem('UserId');
-    // this.attemptTestModel.status = 'start';
-    // this.testportalService.saveStatusOfTest(this.attemptTestModel).subscribe((response) => {
-    // })
+    this.attemptTestModel.testid = this.testId;
+    this.attemptTestModel.stuid = localStorage.getItem('UserId');
+    this.attemptTestModel.status = 'start';
+    this.testportalService.saveStatusOfTest(this.attemptTestModel).subscribe((response) => {
+    })
   }
   showRulesBox() {
     this.questionBoxFlag = false;
@@ -216,24 +216,28 @@ export class TestportalComponent implements OnInit {
       element.studentid = localStorage.getItem('UserId');
       element.testid = this.testId
     });
-    
+     
     this.testportalService.saveStudentTest(this.queList).subscribe((response) => {
+       
       if (response == 'success') {
         this.updateStatusOfTest();
-        // this.router.navigate(['dashboard']);
+        //  this.router.navigate(['dashboard']);
       }
      
     })
 
   }
   updateStatusOfTest() {
+     
     this.attemptTestModel.testid = this.testId;
     this.attemptTestModel.stuid = localStorage.getItem('UserId');
-    // this.attemptTestModel.status = 'completed';
-    this.router.navigate(['dashboard']);
-    // this.testportalService.updateStatusTest(this.attemptTestModel).subscribe((response) => {
-    //   this.apiService.showNotification('top', 'right', 'Test  Submitted Successfully.', 'success');
-    //  this.router.navigate(['dashboard']);
-    // })
+    this.attemptTestModel.status = 'completed';
+    // this.router.navigate(['dashboard']);
+     
+    this.testportalService.updateStatusTest(this.attemptTestModel).subscribe((response) => {
+       
+      this.apiService.showNotification('top ', 'right', 'Test  Submitted Successfully.', 'success');
+     this.router.navigate(['dashboard']);
+    })
   }
 }

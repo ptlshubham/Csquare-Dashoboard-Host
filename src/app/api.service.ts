@@ -94,7 +94,9 @@ export class ApiService {
   public static removeVisitorQueURL: string = ApiService.HOST_URL + '/admin/RemoveVisitorQue';
   public static saveVisitorTestURL: string = ApiService.HOST_URL + '/admin/SaveVisitorTest';
   public static getSubmittedTestURL: string = ApiService.HOST_URL + '/admin/GetSubmittedTest';
-  public static getSubjectByIdURL: string = ApiService.HOST_URL + '/admin/GetSubjectByIdURL';
+  public static GetTestbySubURL: string = ApiService.HOST_URL + '/admin/GetTestbySub';
+  
+  public static getSubjectByIdURL: string = ApiService.HOST_URL + '/admin/GetSubjectById';
   public static getAllVisitorURL: string = ApiService.HOST_URL + '/admin/GetAllVisitor';
   public static updateVisitorInformURL: string = ApiService.HOST_URL + '/admin/UpdateVisitorInform';
   public static getStudentSubmittedTestURL: string = ApiService.HOST_URL + '/admin/GetSubmittedTest';

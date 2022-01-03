@@ -27,7 +27,7 @@ export class VisitorService {
         return this.httpClient.post<any>(ApiService.updateVisitorRegURL, admin);
     }
     saveVisitorQue(data): Observable<any> {
-        debugger
+         
         return this.httpClient.post<any>(ApiService.saveVisitorQueURL, data);
     }
     getVisitorQue(id) {

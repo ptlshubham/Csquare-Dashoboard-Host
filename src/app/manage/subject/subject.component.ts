@@ -187,8 +187,8 @@ export class SubjectComponent implements OnInit {
     this.manageService.addChapaters(this.chapModel).subscribe((data: any) => {
       if(data == 'success'){
         this.apiService.showNotification('top', 'right', 'Chapter added Successfully.', 'success');
-       
         this.getChapaters();
+        this.addChapt = [{ name1: this.valu }]
       }
       else{
         this.apiService.showNotification('top', 'center', 'Chapter added Already.', 'danger');

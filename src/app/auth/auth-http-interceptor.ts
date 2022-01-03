@@ -35,7 +35,15 @@ export class AuthInterceptor implements HttpInterceptor {
                     console.log("token is null");
                     this.router.navigate(['pages/login']);
                 }
-                request = request.clone({ headers: request.headers.set('x-access-token', adminToken) });
+                 request = request.clone({ headers: request.headers.set('x-access-token', adminToken) });
+                return next.handle(request).pipe(catchError(err => {
+                    if (err.status == 'Token is not valid') {
+                        // auto logout if 401 response returned from api
+                       this.router.navigate(['pages/login']);
+                    }
+                    const error = err.error.message || err.statusText;
+                    return throwError(error);
+                }))
             }
         }
         else if (localStorage.getItem('role') == 'Visitor') {
@@ -46,7 +54,15 @@ export class AuthInterceptor implements HttpInterceptor {
                     return next.handle(request);
                     // this.router.navigate(['pages/login']);
                 }
-                request = request.clone({ headers: request.headers.set('x-access-token', visitorToken) });
+                 request = request.clone({ headers: request.headers.set('x-access-token', visitorToken) });
+                return next.handle(request).pipe(catchError(err => {
+                    if (err.status == 'Token is not valid') {
+                        // auto logout if 401 response returned from api
+                       this.router.navigate(['pages/login']);
+                    }
+                    const error = err.error.message || err.statusText;
+                    return throwError(error);
+                }))
             }
         }
         else {
@@ -55,7 +71,15 @@ export class AuthInterceptor implements HttpInterceptor {
             }
             else {
                 if (request.url != ApiService.saveLoginUserURL) {
-                    request = request.clone({ headers: request.headers.set('x-access-token', token) });
+                     request = request.clone({ headers: request.headers.set('x-access-token', token) });
+                    return next.handle(request).pipe(catchError(err => {
+                        if (err.status == 'Token is not valid') {
+                            // auto logout if 401 response returned from api
+                           this.router.navigate(['pages/login']);
+                        }
+                        const error = err.error.message || err.statusText;
+                        return throwError(error);
+                    }))
                 }
                 else {
                     return next.handle(request);

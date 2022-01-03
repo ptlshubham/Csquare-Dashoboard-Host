@@ -259,7 +259,7 @@ export class ExamComponent implements OnInit {
      this.questionModel = val;
     this.examService.getViewTest(val.id).subscribe((data: any) => {
       this.queList = data;
-      debugger
+       
       for (let i = 0; i < this.queList.length; i++) {
         this.queList[i].index = i + 1;
       }

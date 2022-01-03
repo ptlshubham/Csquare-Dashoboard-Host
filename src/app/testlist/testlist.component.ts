@@ -12,7 +12,7 @@ import { RegisterService } from 'app/register/register.service';
 })
 export class TestlistComponent implements OnInit {
   submittedTest: any = [];
-  public subjects: Subject[] = [];
+  public subjects: any=[];
   studentId: number = 0;
   subId: any;
   selectedSub: any;
@@ -43,8 +43,8 @@ export class TestlistComponent implements OnInit {
       this.subId = res.val1;
       this.selectedStd = res.selstd;
       this.stdid = res.stdid;
-      this.stuname = res.name;
-       
+      this.stuname = res.name;  
+        
       this.getSubjectList();
     })
   }
@@ -91,8 +91,28 @@ export class TestlistComponent implements OnInit {
     })
   }
   getSubjectList() {
-    this.registerService.getSubjectByID(this.subId).subscribe((data: any) => {
+    this.registerService.getSubjectByID(this.stdid).subscribe((data: any) => {
       this.subjects = data;
+      this.subjects.forEach(element=>{
+        let data={
+          stuid:this.studentId,
+          subid:element.id
+        }
+        this.registerService.getTestAccordingSub(data).subscribe((res:any)=>{
+            element.test = res;
+            element.test.forEach(ele=>{
+                this.registerService.getTotalObtainMarks(ele).subscribe((res1: any) => {
+                  if(res1 ==0){
+                    ele.totalobtainmarks= '-';
+                  }
+                  else{
+                    ele.totalobtainmarks= res1[0].totalmarks;                   
+                  }               
+                });
+              })
+        })
+      })
+
       // this.subjects.forEach(element => {
       //   this.questionService.getAllQuestion(element.id).subscribe((res: any) => {
       //     element.question = res;
@@ -106,6 +126,7 @@ export class TestlistComponent implements OnInit {
       this.studentId;
     this.examService.getActiveStudentTest(this.studentId).subscribe((data: any) => {
       this.submittedTest = data;
+       
       this.submittedTest.forEach(element=>{
         element.stuid = this.studentId;
         this.registerService.getTotalObtainMarks(element).subscribe((res: any) => {
@@ -129,7 +150,8 @@ export class TestlistComponent implements OnInit {
     });
   }
   openTestList(sub) {
-     
+    this.disptest = [];
+     this.disptest = sub.test;
     this.subjects.forEach(element => {
       if (element.id == sub.id) {
         element.color = '3px 3px 5px 5px #ef8157';
@@ -138,15 +160,15 @@ export class TestlistComponent implements OnInit {
       }
     })
     this.clickViewTest = true;
-    this.disptest = [];
+   
     for (let i = 0; i < this.disptest.length; i++) {
       this.disptest[i].index = i + 1;
     }
-    this.submittedTest.forEach(element => {
-      if (element.subjectId == sub.id) {
-        this.disptest.push(element);
-      }
-    });
+    // this.submittedTest.forEach(element => {
+    //   if (element.subjectId == sub.id) {
+    //     this.disptest.push(element);
+    //   }
+    // });
 
   }
 
@@ -156,17 +178,20 @@ export class TestlistComponent implements OnInit {
     this.viewTest = false;
   }
   getTestList(data) {
-      
+       
     this.testName = data.testname;
+    this.selectedSub = data.subject
     this.clickTest = false;
     this.clickViewTest = false;
     this.viewTest = true;
     this.saveresult.testid = data.testid;
-    this.saveresult.subid = data.subid;
-    this.saveresult.stdid = data.id;
-    this.saveresult.studentid = data.studentid;
+    this.saveresult.subid = data.subjectId;
+    this.saveresult.stdid = data.stdid;
+    this.saveresult.studentid = data.stuid;
+     
     this.registerService.getTestforChecking(data.testid, this.studentId).subscribe((res: any) => {
       this.questions = res;
+       
       for (let i = 0; i < this.questions.length; i++) {
         this.questions[i].index = i + 1;
       }

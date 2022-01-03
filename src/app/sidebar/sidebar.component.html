@@ -19,7 +19,7 @@
     <div class="photo" *ngFor="let s of students; let i = index"
       style="width: 60px !important; height: 60px !important">
       <!-- <i class="fa fa-user" aria-hidden="true"></i> -->
-      <img *ngIf="s.propic != 'null'" src="http://31.220.59.174:3000{{ s.propic }}" />
+      <img *ngIf="s.propic != 'null'" src="http://31.220.59.174:3500{{ s.propic }}" />
       <img *ngIf="s.propic == 'null'" src="../../assets/img/avtar.png" />
     </div>
     <div class="info">

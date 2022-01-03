@@ -3,7 +3,7 @@
 
   <div class="row" *ngIf="!testInfoBoxFlag && !ruleBoxFlag && !questionBoxFlag && type=='notattempt'">
     <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let s of notattempttest; let i = index">
-      <div class="card card-stats" (click)="openStdTest(s.id)">
+      <div class="card card-stats" >
         <div class="card-body">
           <div class="row">
             <div class="col-5 col-md-4">
@@ -190,7 +190,7 @@
         <div *ngFor="let dt of queList; let i = index" class="jumbotron" data-color="primary" id="{{ 'que' + i }}">
           <h2 *ngIf="dt.question != undefined">{{ dt.question }}</h2>
           <div *ngIf="dt.imageque != NULL">
-            <img src="http://31.220.59.174:3000{{dt.imageque}}">
+            <img src="http://31.220.59.174:3500{{dt.imageque}}">
           </div>
 
           <div *ngIf="dt.quetype == 'MCQ'">
@@ -202,10 +202,8 @@
                     op.optionlist
                     }} </label>
                 </div>
-                <div class="col col-sm-12"
-                  *ngIf="(op.imageoption != null &&  op.optionlist == undefined )|| (op.imageoption != 'null' &&  op.optionlist == undefined)">
-                  <img *ngIf="op.imageoption != null  || op.imageoption != 'null'"
-                    src="http://31.220.59.174:3000{{op.imageoption}}">
+                <div class="col col-sm-12" *ngIf="op.imageoption != NULL  ">
+                  <img  src="http://31.220.59.174:3500{{op.imageoption}}">
                 </div>
               </div>
             </div>

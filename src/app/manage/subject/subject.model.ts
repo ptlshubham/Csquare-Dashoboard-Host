@@ -9,6 +9,7 @@ export class Subject {
         public color?: string,
         public index?: number,
         public chapter?: [],
+        public test?:[],
 
     ) {
     }

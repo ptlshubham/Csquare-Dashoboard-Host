@@ -113,12 +113,17 @@ export class RegisterService {
     }
     getSubjectByID(id) {
         let data = {
-            id: id
+            id: id,
+            teachid:localStorage.getItem('UserId'),
+            role:localStorage.getItem('role')
         }
         return this.httpClient.post<any>(ApiService.getSubjectByIdURL, data);
     }
     getTotalObtainMarks(data){
         return this.httpClient.post(ApiService.getTotalofTestmarksURL,data);
+    }
+    getTestAccordingSub(data){
+        return this.httpClient.post(ApiService.GetTestbySubURL,data);
     }
     // getStatusOfTest(data){
     //     return this.httpClient.post(ApiService.getSatusofTestURL,data);

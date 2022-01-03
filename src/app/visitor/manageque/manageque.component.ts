@@ -176,7 +176,7 @@ export class ManagequeComponent implements OnInit {
     this.questionModel = data;
     this.VisitorService.getVisitorTestQue(data).subscribe((res:any)=>{
       this.queList = res;
-      debugger
+       
     })
    
 
@@ -184,7 +184,7 @@ export class ManagequeComponent implements OnInit {
   }
 
   openQuestionList(sub) {
-    debugger
+     
     this.subjects.forEach(element => {
       if (element.id == sub.id) {
         element.color = '3px 3px 5px 5px #ef8157';
@@ -207,7 +207,7 @@ export class ManagequeComponent implements OnInit {
 
   }
   getChapaters() {
-    debugger
+     
     this.manageService.getChapatersList(this.subjectId).subscribe((data: any) => {
       this.chapater = data;
       this.chapater.forEach(element => {
@@ -307,7 +307,7 @@ export class ManagequeComponent implements OnInit {
 
 
   saveNewQuestion(data) {
-    debugger
+     
     this.addOptions.forEach(element => {
       if (element.image == '') {
         element.image == null
@@ -320,7 +320,7 @@ export class ManagequeComponent implements OnInit {
     data.subid = this.subjectId;
     data.chapid = this.chapId;
     // data.quetype = this.selectedQue;
-    debugger
+     
 
     this.VisitorService.saveVisitorQue(data).subscribe((data1: any) => {
       this.apiService.showNotification('top', 'right', 'New Question Added Successfully.', 'success');
@@ -336,7 +336,7 @@ export class ManagequeComponent implements OnInit {
   getQueList(id) {
     this.questionService.getAllQuestion(id).subscribe((data: any) => {
       this.que = data;
-      debugger
+       
       this.quelist = data;
 
       // for (let i = 0; i < this.que.length; i++) {
@@ -402,7 +402,7 @@ export class ManagequeComponent implements OnInit {
   }
 
   isAllSelected(val) {
-    debugger
+     
     this.que.forEach(element => {
       if ((element.id == val.id) && val.isactive) {
         element.isSelected = val.isactive;
@@ -414,7 +414,7 @@ export class ManagequeComponent implements OnInit {
     this.getCheckedItemList();
   }
   getCheckedItemList() {
-    debugger
+     
     // this.checkedQuestionList = [];
     // for (let i = 0; i < this.checkedQuestionList.length; i++) {
     //   this.checkedQuestionList[i].index = i + 1;

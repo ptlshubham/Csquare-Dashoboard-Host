@@ -34,7 +34,7 @@
                 </div>
                 <div class="card-footer">
                     <hr />
-                    <div class="stats">Total Test: {{disptest.length}}</div>
+                    <div class="stats">Total Test: {{s.test.length}}</div>
                 </div>
             </div>
         </div>
@@ -72,10 +72,13 @@
                         <td class="text-center">{{ item.testname }}</td>
                         <td class="text-center">{{ item.totalmarks }}</td>
                         <td class="text-center" >{{ item.totalobtainmarks}}</td>
-                        <td class="text-center" >{{item.teststatus}}</td>
+                        <td class="text-center" *ngIf="item.status != 'started' && item.status != 'assigned'">{{item.status}}</td>
+                        <td class="text-center" *ngIf="item.status == 'started'">Not Attempted</td>
+                        <td class="text-center" *ngIf="item.status == 'assigned'">Pending</td>
+                        
                         <td class="text-right">
-                            <a class="btn btn-warning btn-link btn-icon btn-sm edit">
-                                <i class="fa far fa-eye" data-toggle="modal" data-target="#testModal"
+                            <a class="btn btn-warning btn-link btn-icon btn-sm edit" *ngIf="item.status =='completed'">
+                                <i class="fa far fa-eye" data-toggle="modal"  data-target="#testModal"
                                     (click)="getTestList(item)"></i>
                             </a>
                             <a class="btn btn-danger btn-link btn-icon btn-sm remove"><i class="fa fa-times"
@@ -171,7 +174,7 @@
                                 <td>
                                     <div class="img-container">
                                         <img *ngIf="item.imageque != null"
-                                            src="http://31.220.59.174:3000{{ item.imageque }}" />
+                                            src="http://31.220.59.174:3500{{ item.imageque }}" />
                                     </div>
                                 </td>
                                 <td class="text-center">

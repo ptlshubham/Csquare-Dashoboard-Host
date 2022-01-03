@@ -249,7 +249,7 @@ export class RegisterComponent implements OnInit {
     });
   }
   onItemSelect($event) {
-    debugger
+     
     let data = {
       selStds: $event.itemName,
       stdid: $event.id,
@@ -393,8 +393,8 @@ export class RegisterComponent implements OnInit {
         val: data.id,
         val1: this.list,
         selstd: this.selectedstd,
-        stdid: this.stdId,
-        name: data.firstname + "" + data.middlename + "" + data.lastname
+        stdid: this.list,
+        name: data.firstname + " " + data.middlename + " " + data.lastname
       }
     })
   }

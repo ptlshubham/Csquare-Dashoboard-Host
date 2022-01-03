@@ -60,7 +60,7 @@ export class VisitorexamComponent implements OnInit {
     this.testModel.marks = data[0].totalmarks;
     this.testInfoBoxFlag = true;
     this.gettestquestion();
-    debugger
+     
 
     });
   }
@@ -75,7 +75,7 @@ export class VisitorexamComponent implements OnInit {
     this.testInfoBoxFlag = true;
   }
   gettestquestion(){
-    debugger
+     
     let data1 = {
       id: this.testId,
     }

@@ -80,13 +80,14 @@ export class VisitorRegComponent implements OnInit {
   }
   signup() {
     this.VisitorService.saveVisitorRegister(this.visitorModel).subscribe((data: any) => {
+       
       this.visitorDetails = data;
       localStorage.setItem('role', this.selectedRole);
       localStorage.setItem('UserName', data.username);
       localStorage.setItem('email', data.email);
       localStorage.setItem('vid', data.insertId);
       localStorage.setItem('secret', data.password);
-      debugger
+       
       this.apiService.showNotification('top', 'right', 'Otp Sent on Registered Email Address.', 'success');
       this.otpBox = true;
     })
@@ -97,7 +98,7 @@ export class VisitorRegComponent implements OnInit {
     this.visitorModel.visitorId = localStorage.getItem('vid');
     this.VisitorService.getOtp(this.visitorModel).subscribe((data) => {
       localStorage.setItem('authToken', data[0].token);
-      debugger
+       
       this.apiService.showNotification('top', 'right', 'OTP is verified Successfully.', 'success');
       this.router.navigate(['visitor/visitorreg']);
       localStorage.removeItem('secret');

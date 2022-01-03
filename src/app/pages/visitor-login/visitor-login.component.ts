@@ -103,7 +103,7 @@ export class VisitorLoginComponent implements OnInit {
         localStorage.setItem('role', 'Visitor');
         localStorage.setItem('authToken', data[0].token);
         localStorage.setItem('stdid', data[0].standard)
-        debugger
+         
         if (data[0].detailsupdated = true) {
           this.router.navigate(['visitor/visitortest']);
         }

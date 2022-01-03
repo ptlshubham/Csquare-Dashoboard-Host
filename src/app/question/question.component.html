@@ -146,7 +146,7 @@
               </td>
               <td class="text-center">
                 <div class="img-container" *ngIf="item.imageque != 'null'">
-                  <img *ngIf="item.imageque  != 'null'" src="http://localhost:8090{{ item.imageque }}"
+                  <img *ngIf="item.imageque  != 'null'" src="http://31.220.59.174:3500{{ item.imageque }}"
                     style="height: 40% !important;width: 40% !important;" />
                 </div>
                 <label *ngIf="item.imageque == 'null'" style="font-size: larger;font-weight: bold;">-</label>
@@ -222,11 +222,11 @@
             <div class="fileinput fileinput-new text-center" data-provides="fileinput">
               <div class="fileinput-new thumbnail" *ngIf=" questionModel.imageque  == 'null'">
                 <img src="./assets/img/image_placeholder.jpg" alt="..." *ngIf=" questionModel.imageque  == 'null'" />
-                <img src="http://localhost:8090{{questionModel.imageque}}" *ngIf="questionModel.imageque  != 'null'">
+                <img src="http://31.220.59.174:3500{{questionModel.imageque}}" *ngIf="questionModel.imageque  != 'null'">
               </div>
               <div class="fileinput-new thumbnail" *ngIf="questionModel.imageque  != 'null'">
                 <img src="./assets/img/image_placeholder.jpg" alt="..." *ngIf=" questionModel.imageque  == 'null'" />
-                <img src="http://localhost:8090{{questionModel.imageque}}" *ngIf="questionModel.imageque  != 'null'">
+                <img src="http://31.220.59.174:3500{{questionModel.imageque}}" *ngIf="questionModel.imageque  != 'null'">
               </div>
               <div class="fileinput-preview fileinput-exists thumbnail"></div>
               <div>
@@ -277,7 +277,7 @@
               </div>
               <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                 <div class="fileinput-new thumbnail" *ngIf=" add.imageoption  != 'null'">
-                  <img src="http://localhost:8090{{add.imageoption}}" *ngIf=" add.imageoption  != 'null'">
+                  <img src="http://31.220.59.174:3500{{add.imageoption}}" *ngIf=" add.imageoption  != 'null'">
                 </div>
                 <div class="fileinput-new thumbnail" *ngIf=" add.imageoption  == 'null'">
                   <img src="./assets/img/image_placeholder.jpg" alt="..." *ngIf=" add.imageoption  == 'null' " />
@@ -556,7 +556,7 @@
               <td class="text-center" *ngIf="item.question != 'undefined'">{{ item.question }}</td>
               <td class="text-center">
                 <div class="img-container" *ngIf="item.imageque != 'null'">
-                  <img *ngIf="item.imageque != 'null'" src="http://localhost:8090{{ item.imageque }}"
+                  <img *ngIf="item.imageque != 'null'" src="http://31.220.59.174:3500{{ item.imageque }}"
                     style="height: 40% !important;width: 40% !important;" />
                 </div>
                 <label *ngIf="item.imageque  == 'null'" style="font-size: larger;font-weight: bold;">-</label>

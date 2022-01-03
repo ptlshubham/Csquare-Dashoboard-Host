@@ -27,7 +27,7 @@ export class VisitorTestListComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((res: any) => {
       this.subjectId = res.subid;
       this.stdid = res.stdid;
-      debugger
+       
 
       // this.getStandardList();
     })
@@ -66,11 +66,11 @@ export class VisitorTestListComponent implements OnInit {
     }
     this.VisitorService.getVisitorTestList(data).subscribe((data: any) => {
       this.visitorTestList = data;
-      debugger
+       
     });
   }
   studentTest(data) {
-    debugger
+     
     this.router.navigate(['visitor/visitorexam'],{
       queryParams:{
         id:data.id

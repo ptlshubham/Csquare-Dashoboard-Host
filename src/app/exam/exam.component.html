@@ -124,7 +124,7 @@
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
             <i class="nc-icon nc-simple-remove"></i>
           </button>
-          <h5 class="modal-title" id="myModalLabel">Create Test / Quiz</h5>
+          <h5 class="modal-title" id="myModalLabel">Assign  Test / Quiz</h5>
         </div>
         <div class="modal-body">
           <div class="instruction">
@@ -186,17 +186,17 @@
                         <th class="text-center">Duration(Minutes)</th>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let item of queList | paginate: { itemsPerPage: 5, currentPage: p };let i=index">
-                          <td class="text-center">{{ i + 1 }}</td>
+                        <tr *ngFor="let item of queList | paginate: { itemsPerPage: 5, currentPage: pa };let i=index">
+                          <td class="text-center">{{ item.index}}</td>
                           <td class="text-center">{{ item.quetype }}</td>
                           <td class="text-center" *ngIf="item.question == 'undefined'"></td>
                           <td class="text-center" *ngIf="item.question != 'undefined'">{{ item.question }}</td>
                           <td class="text-center">
-                            <div class="img-container" *ngIf="item.imageque != null">
-                              <img *ngIf="item.imageque != null" src="http://31.220.59.174:3000{{ item.imageque }}"
+                            <div class="img-container" *ngIf="item.imageque != 'null'">
+                              <img *ngIf="item.imageque != 'null'" src="http://31.220.59.174:3500{{ item.imageque }}"
                                 style="height: 40% !important;width: 40% !important;" />
                             </div>
-                            <label *ngIf="item.imageque == null" style="font-size: larger;font-weight: bold;">-</label>
+                            <label *ngIf="item.imageque == 'null'" style="font-size: larger;font-weight: bold;">-</label>
                           </td>
                          
                           <td class="text-center">
@@ -213,7 +213,7 @@
                 <div class="card-footer ">
                   <div class="row">
                     <div class="ml-md-auto">
-                      <pagination-controls (pageChange)="p = $event" maxSize="5" autoHide="true" responsive="true">
+                      <pagination-controls (pageChange)="pa = $event" maxSize="5" autoHide="true" responsive="true">
                       </pagination-controls>
                     </div>
                   </div>

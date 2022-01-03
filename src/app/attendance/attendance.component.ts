@@ -141,7 +141,7 @@ export class AttendanceComponent implements OnInit {
   // }
 
   handleDateClick(arg) {
-    debugger
+     
     if (this.stdId) {
       this.getStudent();
       this.showModal = true;
