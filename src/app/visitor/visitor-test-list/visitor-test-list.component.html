@@ -1,11 +1,11 @@
 <div class="main-content">
     <div class="card">
         <div class="card-header">
-            <div class="row">
+            <div class="row" *ngIf="role =='Visitor'">
                 <div class="col-md-8">
                     <h4 class="card-title">Select Test From List</h4>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" >
                     <div class="dropdown form-group">
                         <button class="dropdown-toggle btn btn-round btn-block" type="button" name="dropdownMenuButton"
                             id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -21,18 +21,64 @@
                         </div>
                     </div>
                 </div>
-                <div class="ml-md-auto">
-
-                    <button type="cancel" class="btn btn-danger btn-round" routerLink="/dashboard">
-                        <i class="fa fa-arrow-left"></i> Back
-                    </button>
-                </div>
             </div>
+                <div class="row" *ngIf="role !='visitor'">
+                    <div class="col-md-12">
+                        <h4 class="card-title">Select Test From List</h4>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="subject"
+                            style="color: black; font-size:18px !important;font-weight:500; margin-top: 13px !important; margin-left:34% !important;">Select
+                            Standard:</label>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="dropdown form-group">
+                            <button class="dropdown-toggle btn btn-round btn-block" type="button" name="dropdownMenuButton"
+                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ selectedStd }}
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                <div class="dropdown-header">Select Standard</div>
+                                <div *ngFor="let std of stdlist">
+                                    <a class="dropdown-item" (click)="selectStdVisitor(std.id)">{{
+                                        std.stdname
+                                        }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="subject"
+                            style="color: black; font-size:18px !important;font-weight:500; margin-top: 13px !important; margin-left:34% !important;">Select
+                            Subject:</label>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="dropdown form-group">
+                            <button class="dropdown-toggle btn btn-round btn-block" type="button" name="dropdownMenuButton"
+                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ selectedSubject }}
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                <div class="dropdown-header">Select Subject</div>
+                                <div *ngFor="let sub of subjects">
+                                    <a class="dropdown-item" (click)="selectSubjectList(sub.id)">{{
+                                        sub.subject
+                                        }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
         </div>
-
     </div>
-    <div class="card card-plain">
-        <div class="card-body">
+
+    
+    <!-- <div class="card card-plain">
+        <div class="card-body"> -->
+        <div class="row">
+
+       
             <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let s of visitorTestList; let i = index" (click)="studentTest(s)">
                 <div class="card card-stats" >
                     <div class="card-body">
@@ -58,5 +104,6 @@
                 </div>
             </div>
         </div>
-    </div>
+        <!-- </div>
+    </div> -->
 </div>

@@ -18,18 +18,21 @@ export class VisitorTestListComponent implements OnInit {
   stdshow: any;
   public stdlist: Std[];
   public subjects: Subject[];
+  role:any;
+  selectedStd:any;
   constructor(
     private VisitorService: VisitorService,
     private manageService: ManageService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
   ) {
+    this.role = localStorage.getItem('role');
     this.activatedRoute.queryParams.subscribe((res: any) => {
       this.subjectId = res.subid;
       this.stdid = res.stdid;
        
 
-      // this.getStandardList();
+       this.getStandardList();
     })
     if (localStorage.getItem('stdid') == undefined) {
       this.getSubject(this.subjectId);
@@ -42,6 +45,20 @@ export class VisitorTestListComponent implements OnInit {
 
   ngOnInit(): void {
     this.stdshow = this.getSubject(localStorage.getItem('stdid'));
+  }
+  getStandardList() {
+    this.manageService.getStdList().subscribe((data: any) => {
+      this.stdlist = data;
+    });
+  }
+  selectStdVisitor(id) {
+    this.stdid = id;
+    this.getSubject(this.stdid);
+    this.stdlist.forEach(element => {
+      if (element.id == id) {
+        this.selectedStd = element.stdname;
+      }
+    })
   }
   getSubject(id) {
     this.manageService.getSubjectList(id).subscribe((data: any) => {
@@ -60,14 +77,28 @@ export class VisitorTestListComponent implements OnInit {
     this.getVisitorTest();
   }
   getVisitorTest() {
-    let data = {
-      stdid: localStorage.getItem('stdid'),
-      subid: this.subjectId
+    debugger
+    if(this.stdid != undefined){
+      let data = {
+        stdid: this.stdid,
+        subid: this.subjectId
+      }
+      this.VisitorService.getVisitorTestList(data).subscribe((data: any) => {
+        this.visitorTestList = data;
+         
+      });
+    } else{
+      let data = {
+        stdid: localStorage.getItem('standardid'),
+        subid: this.subjectId
+      }
+      this.VisitorService.getVisitorTestList(data).subscribe((data: any) => {
+        this.visitorTestList = data;
+         
+      });
     }
-    this.VisitorService.getVisitorTestList(data).subscribe((data: any) => {
-      this.visitorTestList = data;
-       
-    });
+   
+    
   }
   studentTest(data) {
      

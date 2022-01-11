@@ -388,6 +388,7 @@ export class RegisterComponent implements OnInit {
     });
   }
   getSubmittedTest(data) {
+    debugger
     this.router.navigate(['/testlist'], {
       queryParams: {
         val: data.id,

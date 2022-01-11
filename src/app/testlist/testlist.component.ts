@@ -51,7 +51,7 @@ export class TestlistComponent implements OnInit {
 
   ngOnInit(): void {
     this.clickTest = true;
-    this.getSubmittedTest();
+    // this.getSubmittedTest();
   }
   ngAfterViewInit() {
     "use strict";
@@ -91,8 +91,10 @@ export class TestlistComponent implements OnInit {
     })
   }
   getSubjectList() {
+    debugger
     this.registerService.getSubjectByID(this.stdid).subscribe((data: any) => {
       this.subjects = data;
+      debugger
       this.subjects.forEach(element=>{
         let data={
           stuid:this.studentId,

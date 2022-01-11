@@ -83,7 +83,7 @@ export const ROUTES: RouteInfo[] = [
       { path: "visitorreg", title: "Registration", ab: "VR" },
       { path: "visitorlist", title: "Vistor List", ab: "VL" },
       { path: "manageque", title: "Manage Question", ab: "MQ" },
-      { path: "visitortest", title: "Test List", ab: "TL" },
+      // { path: "visitortest", title: "Test List", ab: "TL" },
       { path: "visitorexam", title: "Vistor Test", ab: "VE" },
 
     ],

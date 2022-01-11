@@ -210,7 +210,7 @@
                         <th class="text-right">Actions</th>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of que | paginate: { id:'listing_pagination',itemsPerPage: 2, currentPage: page,totalItems:totalRecords }">
+                        <tr *ngFor="let item of que | paginate: { id:'listing_pagination',itemsPerPage: 5, currentPage: page,totalItems:totalRecords }">
                             <td>
                                 <div class="form-check">
                                     <label class="form-check-label">
