@@ -13,6 +13,7 @@ import { RegisterService } from 'app/register/register.service';
 import { Studentregister } from 'app/register/student.model';
 import { ChartOptions, ChartType } from 'chart.js';
 import { Label, MultiDataSet, SingleDataSet } from 'ng2-charts';
+import { isDebuggerStatement } from 'typescript';
 declare const $: any;
 declare var require: any;
 
@@ -206,8 +207,10 @@ export class DashboardComponent implements OnInit {
     // })
   }
   getSubjectList() {
+    debugger
     this.registerService.getSubjectByID(localStorage.getItem("standardid")).subscribe((data: any) => {
       this.subjects = data;
+      debugger
     });
   }
   closeTest() {
@@ -230,6 +233,7 @@ export class DashboardComponent implements OnInit {
   }
 
   openSubmittedTest() {
+    debugger
     this.showSubmited = true;
     this.getSubjectList();
   }

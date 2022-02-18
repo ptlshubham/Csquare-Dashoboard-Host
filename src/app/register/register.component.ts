@@ -209,7 +209,9 @@ export class RegisterComponent implements OnInit {
 
   }
   saveTeacherDetail() {
+    debugger
     this.registerModel.rights = this.selectStdsList;
+    debugger
     this.registerService.saveTeacherList(this.registerModel).subscribe((data: any) => {
       console.log("dedededede");
       if (data == 'success') {
@@ -217,6 +219,8 @@ export class RegisterComponent implements OnInit {
         this.openstudent = true;
         this.openTeachAdd = false;
         this.openStuAdd = false;
+        this.registerModel=new Register ;
+        this.selectStdsList =[];
         this.getTeacher();
       }
     })
@@ -460,12 +464,12 @@ export class RegisterComponent implements OnInit {
       confirmButtonText: 'Yes',
       buttonsStyling: false
     }).then((result) => {
-      this.registerService.removeTeacherList(id).subscribe((req) => {
-        this.apiservice.showNotification('top', 'right', 'Teacher Successfully removed.', 'success');
-
-      })
+      
       if (result.value == true) {
-
+        this.registerService.removeTeacherList(id).subscribe((req) => {
+          this.apiservice.showNotification('top', 'right', 'Teacher Successfully removed.', 'success');
+  
+        })
         Swal.fire(
           {
             title: 'Deleted!',

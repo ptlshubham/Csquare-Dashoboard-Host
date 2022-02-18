@@ -112,6 +112,7 @@ export class RegisterService {
         return this.httpClient.post<any>(ApiService.getSubmittedTestURL, data);
     }
     getSubjectByID(id) {
+        debugger
         let data = {
             id: id,
             teachid:localStorage.getItem('UserId'),

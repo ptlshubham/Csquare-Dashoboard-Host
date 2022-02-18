@@ -159,7 +159,8 @@
           <div class="col-md-4">
             <div class="form-group">
                 <input type="password" class="form-control" id="password" [(ngModel)]="registerModel.password"
-                name="password" placeholder="Enter Password" required value="" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,15}$"
+                name="password" placeholder="Enter Password" required value=""
+                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,15}$"
                 (focus)="focus = true" #password="ngModel" />
             </div>
             <div *ngIf="password.errors && (password.dirty || password.touched)" class="alert alert-danger">
